@@ -146,7 +146,7 @@ export default function UnderConstructionBlock() {
                 {fieldError && (
                   <p
                     role="alert"
-                    className="mt-2 text-sm font-medium text-mvcb-orange-strong"
+                    className="mt-2 text-left text-sm font-medium text-mvcb-orange-strong"
                   >
                     {fieldError}
                   </p>
@@ -154,7 +154,7 @@ export default function UnderConstructionBlock() {
                 {status === "error" && (
                   <p
                     role="alert"
-                    className="mt-2 text-sm font-medium text-mvcb-orange-strong"
+                    className="mt-2 text-left text-sm font-medium text-mvcb-orange-strong"
                   >
                     Something went wrong &mdash; please try again or call us
                     directly.
