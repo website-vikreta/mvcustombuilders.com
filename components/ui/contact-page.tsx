@@ -1,10 +1,10 @@
 "use client";
 
 import emailjs from "@emailjs/browser";
-import { CheckCircle2, Clock, Loader2, MapPin, Phone } from "lucide-react";
+import { CheckCircleFill, Clock, GeoAlt, Phone } from "react-bootstrap-icons";
 import { useEffect, useState } from "react";
 
-import { Button } from "@/components/ui/button";
+import Action from "@/components/ui/action";
 import { Input } from "@/components/ui/input";
 import ScrollRevealInit from "@/components/ui/scroll-reveal-init";
 import {
@@ -34,7 +34,7 @@ const PROJECT_TYPES = [
 
 const INFO_CARDS = [
   {
-    icon: MapPin,
+    icon: GeoAlt,
     label: "Belleville Headquarters",
     value: "31 Bridge St, Belleville, NJ 07109",
   },
@@ -111,23 +111,23 @@ export default function ContactPage() {
       <ScrollRevealInit />
 
       {/* HERO */}
-      <section className="bg-mvcb-black py-16 md:py-24">
-        <div className="mx-auto flex max-w-3xl flex-col items-center px-6 text-center sm:px-8">
-          <h1 className="text-4xl font-black tracking-tight text-white sm:text-5xl md:text-6xl">
+      <section className="py-16 md:py-24">
+        <div className="mx-auto flex max-w-6xl flex-col bg-mvcb-black px-8 py-12 sm:px-12 md:px-16 md:py-20">
+          <h1 className="text-4xl font-extrabold tracking-[-0.02em] uppercase text-white sm:text-5xl md:text-6xl">
             Get In <span className="text-mvcb-orange">Touch</span>
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-neutral-300">
-            Tell us about your project. We&apos;ll walk the property, give
-            you a straight answer on scope, and get you on the schedule.
+            Tell us about your project. We&apos;ll walk the property, give you a
+            straight answer on scope, and get you on the schedule.
           </p>
         </div>
       </section>
 
       {/* FORM + INFO */}
-      <section className="bg-background py-16 md:py-24">
-        <div className="mx-auto grid max-w-6xl gap-12 px-6 sm:px-8 lg:grid-cols-[1.3fr_1fr] lg:gap-16">
+      <section className="py-16 md:py-24">
+        <div className="mx-auto grid max-w-6xl gap-12 px-6 sm:px-8 lg:grid-cols-2 lg:gap-16">
           <div data-reveal>
-            <h2 className="text-2xl font-semibold tracking-tight text-mvcb-black md:text-3xl">
+            <h2 className="text-2xl font-extrabold tracking-[-0.02em] uppercase text-mvcb-black md:text-3xl">
               Request a Consultation
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
@@ -136,15 +136,19 @@ export default function ContactPage() {
 
             <div className="mt-8">
               {status === "success" ? (
-                <div className="flex items-center gap-3 rounded-2xl border border-emerald-600/20 bg-emerald-600/10 p-5">
-                  <CheckCircle2 className="h-6 w-6 shrink-0 text-emerald-700" />
+                <div className="flex items-center gap-3  border border-emerald-600/20 bg-emerald-600/10 p-5">
+                  <CheckCircleFill className="h-6 w-6 shrink-0 text-emerald-700" />
                   <p className="text-sm font-semibold text-mvcb-black">
                     Request sent. We&apos;ll be in touch within one business
                     day.
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+                <form
+                  onSubmit={handleSubmit}
+                  noValidate
+                  className="flex flex-col gap-5"
+                >
                   <div className="grid gap-5 sm:grid-cols-2">
                     <div>
                       <label
@@ -163,7 +167,7 @@ export default function ContactPage() {
                           if (fieldError) setFieldError(null);
                         }}
                         placeholder="John Doe"
-                        className="mt-2 h-11 rounded-lg px-4"
+                        className="mt-2 h-11  px-4"
                       />
                     </div>
                     <div>
@@ -180,7 +184,7 @@ export default function ContactPage() {
                         value={phone}
                         onChange={(event) => setPhone(event.target.value)}
                         placeholder="(973) 555-0147"
-                        className="mt-2 h-11 rounded-lg px-4"
+                        className="mt-2 h-11  px-4"
                       />
                     </div>
                   </div>
@@ -204,7 +208,7 @@ export default function ContactPage() {
                       }}
                       placeholder="you@example.com"
                       aria-invalid={fieldError ? "true" : "false"}
-                      className="mt-2 h-11 rounded-lg px-4"
+                      className="mt-2 h-11  px-4"
                     />
                   </div>
 
@@ -213,7 +217,7 @@ export default function ContactPage() {
                       Project Type
                     </span>
                     <Select value={projectType} onValueChange={setProjectType}>
-                      <SelectTrigger className="mt-2 h-11 w-full rounded-lg">
+                      <SelectTrigger className="mt-2 h-11 w-full">
                         <SelectValue placeholder="Select project type..." />
                       </SelectTrigger>
                       <SelectContent>
@@ -240,37 +244,36 @@ export default function ContactPage() {
                       value={message}
                       onChange={(event) => setMessage(event.target.value)}
                       placeholder="Tell us about your home and what needs fixing..."
-                      className="mt-2 rounded-lg px-4 py-3"
+                      className="mt-2  px-4 py-3"
                     />
                   </div>
 
                   {fieldError && (
-                    <p role="alert" className="text-sm font-medium text-mvcb-orange-strong">
+                    <p
+                      role="alert"
+                      className="text-sm font-medium text-mvcb-orange"
+                    >
                       {fieldError}
                     </p>
                   )}
                   {status === "error" && (
-                    <p role="alert" className="text-sm font-medium text-mvcb-orange-strong">
-                      Something went wrong &mdash; please try again or call
-                      us directly.
+                    <p
+                      role="alert"
+                      className="text-sm font-medium text-mvcb-orange"
+                    >
+                      Something went wrong &mdash; please try again or call us
+                      directly.
                     </p>
                   )}
 
-                  <Button
+                  <Action
                     type="submit"
-                    disabled={status === "sending"}
                     size="lg"
-                    className="h-12 rounded-full bg-mvcb-orange px-8 font-bold text-mvcb-black hover:bg-mvcb-orange-strong disabled:opacity-70"
+                    loading={status === "sending"}
+                    loadingLabel="Sending"
                   >
-                    {status === "sending" ? (
-                      <span className="flex items-center gap-2">
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        Sending...
-                      </span>
-                    ) : (
-                      "Send Request"
-                    )}
-                  </Button>
+                    Send request
+                  </Action>
                 </form>
               )}
             </div>
@@ -280,16 +283,16 @@ export default function ContactPage() {
             {INFO_CARDS.map(({ icon: Icon, label, value }) => (
               <div
                 key={label}
-                className="flex items-center gap-4 rounded-2xl border border-border bg-card p-6"
+                className="flex items-center gap-4  border border-mvcb-line bg-background p-6"
               >
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-mvcb-orange/10">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center  border border-mvcb-line">
                   <Icon
-                    className="h-5 w-5 text-mvcb-orange-strong"
+                    className="h-5 w-5 text-mvcb-orange"
                     aria-hidden="true"
                   />
                 </div>
                 <div>
-                  <span className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                  <span className="text-xs font-bold tracking-[0.1em] text-muted-foreground uppercase">
                     {label}
                   </span>
                   <p className="text-sm font-semibold text-mvcb-black">
@@ -299,7 +302,7 @@ export default function ContactPage() {
               </div>
             ))}
 
-            <div className="overflow-hidden rounded-2xl border border-border">
+            <div className="overflow-hidden  border border-mvcb-line">
               <iframe
                 title="MV Custom Builders office location"
                 src="https://www.google.com/maps?q=31+Bridge+St,+Belleville,+NJ+07109&output=embed"
@@ -313,26 +316,22 @@ export default function ContactPage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="bg-mvcb-black py-16 md:py-24">
+      <section className="py-16 md:py-24">
         <div
           data-reveal
-          className="mx-auto flex max-w-3xl flex-col items-center px-6 text-center sm:px-8"
+          className="mx-auto flex max-w-6xl flex-col bg-mvcb-black px-8 py-12 sm:px-12 md:px-16 md:py-20"
         >
-          <h2 className="text-3xl font-semibold tracking-tight text-white md:text-5xl">
+          <h2 className="text-3xl font-extrabold tracking-[-0.02em] uppercase text-white md:text-5xl">
             Prefer to Call? Reach Us Directly
           </h2>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-neutral-400">
-            Skip the form. Call our team to talk through your project and
-            get on the schedule.
+            Skip the form. Call our team to talk through your project and get on
+            the schedule.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button
-              asChild
-              size="lg"
-              className="h-12 rounded-full bg-mvcb-orange px-8 font-bold text-mvcb-black hover:bg-mvcb-orange-strong"
-            >
-              <a href="tel:+19735550147">Call (973) 555-0147</a>
-            </Button>
+            <Action href="tel:+19735550147" size="lg">
+              Call (973) 555-0147
+            </Action>
           </div>
         </div>
       </section>

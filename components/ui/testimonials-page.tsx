@@ -1,6 +1,6 @@
-import { RiInstagramLine } from "@remixicon/react";
+import { Instagram } from "react-bootstrap-icons";
 
-import { Button } from "@/components/ui/button";
+import Action from "@/components/ui/action";
 import ScrollRevealInit from "@/components/ui/scroll-reveal-init";
 
 const TESTIMONIALS = [
@@ -54,12 +54,9 @@ export default function TestimonialsPage() {
       <ScrollRevealInit />
 
       {/* HERO */}
-      <section className="bg-mvcb-black py-16 md:py-24">
-        <div className="mx-auto flex max-w-3xl flex-col items-center px-6 text-center sm:px-8">
-          <span className="text-xs font-semibold tracking-wide text-mvcb-orange uppercase">
-            Real Client Stories
-          </span>
-          <h1 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-5xl md:text-6xl">
+      <section className="py-16 md:py-24">
+        <div className="mx-auto flex max-w-6xl flex-col bg-mvcb-black px-8 py-12 sm:px-12 md:px-16 md:py-20">
+          <h1 className="text-4xl font-extrabold tracking-[-0.02em] uppercase text-white sm:text-5xl md:text-6xl">
             Client Testimonials
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-neutral-300">
@@ -70,15 +67,14 @@ export default function TestimonialsPage() {
       </section>
 
       {/* REVIEWS GRID */}
-      <section className="bg-background py-16 md:py-24">
-        <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          <div className="grid gap-6 md:grid-cols-3">
-            {TESTIMONIALS.map((testimonial, index) => (
+      <section className="py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-8 sm:px-12 lg:px-16">
+          <div className="grid gap-6 md:grid-cols-2">
+            {TESTIMONIALS.map((testimonial) => (
               <figure
                 key={testimonial.name}
                 data-reveal
-                style={{ animationDelay: `${index * 70}ms` }}
-                className="flex h-full flex-col rounded-2xl border border-border bg-card p-6"
+                className="flex h-full flex-col  border border-mvcb-line bg-background p-6"
               >
                 <blockquote className="flex-1 text-sm leading-relaxed text-mvcb-black">
                   &ldquo;{testimonial.quote}&rdquo;
@@ -90,7 +86,7 @@ export default function TestimonialsPage() {
                   <span className="block text-muted-foreground">
                     {testimonial.location}
                   </span>
-                  <span className="mt-1 block text-xs font-semibold tracking-wide text-mvcb-orange-strong uppercase">
+                  <span className="mt-1 block text-xs font-bold tracking-[0.1em] text-mvcb-orange uppercase">
                     {testimonial.tag}
                   </span>
                 </figcaption>
@@ -101,81 +97,60 @@ export default function TestimonialsPage() {
       </section>
 
       {/* LEAVE A REVIEW */}
-      <section className="border-y border-border bg-mvcb-cream py-16">
+      <section className="py-16 md:py-24">
         <div
           data-reveal
-          className="mx-auto flex max-w-2xl flex-col items-center gap-4 px-6 text-center sm:px-8"
+          className="mx-auto flex max-w-6xl flex-col gap-6 bg-mvcb-black px-8 py-12 sm:px-12 md:px-16 md:py-20"
         >
-          <h2 className="text-2xl font-semibold tracking-tight text-mvcb-black md:text-3xl">
+          <h2 className="text-2xl font-extrabold tracking-[-0.02em] uppercase text-mvcb-black md:text-3xl">
             Had a Great Experience?
           </h2>
           <p className="text-base leading-relaxed text-muted-foreground">
-            Share your feedback on Google and help other New Jersey
-            homeowners find us.
+            Share your feedback on Google and help other New Jersey homeowners
+            find us.
           </p>
-          <Button
-            asChild
-            className="rounded-full bg-mvcb-orange px-6 font-bold text-mvcb-black hover:bg-mvcb-orange-strong"
-          >
-            <a
-              href="https://www.google.com/search?q=MV+Custom+Builders+Belleville+NJ+reviews"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Leave a Google Review
-            </a>
-          </Button>
+          <Action href="https://www.google.com/search?q=MV+Custom+Builders+Belleville+NJ+reviews">
+            Leave a Google review
+          </Action>
         </div>
       </section>
 
       {/* INSTAGRAM */}
-      <section className="bg-background py-12">
+      <section className="py-16 md:py-24">
         <div
           data-reveal
-          className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 text-center sm:px-8"
+          className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-6 sm:px-8 md:flex-row md:items-center md:justify-between"
         >
-          <h2 className="text-xl font-semibold text-mvcb-black md:text-2xl">
+          <h2 className="text-xl font-extrabold tracking-[-0.02em] text-mvcb-black uppercase md:text-2xl">
             Follow Our Work @MV_Custom_Builders
           </h2>
-          <Button
-            asChild
-            variant="outline"
-            className="rounded-full border-mvcb-black px-5 font-semibold text-mvcb-black hover:bg-mvcb-black hover:text-white"
+          <Action
+            href="https://www.instagram.com/mv_custom_builders"
+            variant="secondary"
           >
-            <a
-              href="https://www.instagram.com/mv_custom_builders"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2"
-            >
-              <RiInstagramLine className="h-4 w-4" aria-hidden="true" />
-              Follow on Instagram
-            </a>
-          </Button>
+            <Instagram className="h-4 w-4" aria-hidden="true" />
+            Follow on Instagram
+          </Action>
         </div>
       </section>
 
       {/* FINAL CTA */}
-      <section className="bg-mvcb-black py-16 md:py-24">
+      <section className="py-16 md:py-24">
         <div
           data-reveal
-          className="mx-auto flex max-w-3xl flex-col items-center px-6 text-center sm:px-8"
+          className="mx-auto flex max-w-6xl flex-col bg-mvcb-black px-8 py-12 sm:px-12 md:px-16 md:py-20"
         >
-          <h2 className="text-3xl font-semibold tracking-tight text-white md:text-5xl">
+          <h2 className="text-3xl font-extrabold tracking-[-0.02em] uppercase text-white md:text-5xl">
             Ready to Be Our Next Success Story?
           </h2>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-neutral-400">
-            Tell us about your project and we&apos;ll walk you through scope
-            and pricing.
+            Tell us about your project and we&apos;ll walk you through scope and
+            pricing.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button
-              asChild
-              size="lg"
-              className="h-12 rounded-full bg-mvcb-orange px-8 font-bold text-mvcb-black hover:bg-mvcb-orange-strong"
-            >
-              <a href="tel:+19735550147">Get a Free Quote</a>
-            </Button>
+            <Action href="/contact" size="lg" withArrow>
+              Get a free quote
+            </Action>
           </div>
         </div>
       </section>
