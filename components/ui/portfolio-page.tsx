@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import BeforeAfterSlider from "@/components/ui/before-after-slider";
-import { Button } from "@/components/ui/button";
+import Action from "@/components/ui/action";
 import ScrollRevealInit from "@/components/ui/scroll-reveal-init";
 
 const PROJECTS = [
@@ -40,37 +40,29 @@ export default function PortfolioPage() {
       {/* HERO */}
       <section className="relative w-full overflow-hidden bg-mvcb-black">
         <div className="absolute inset-0" aria-hidden="true">
-          <div className="absolute inset-0 bg-blueprint-grid-light opacity-10" />
           <div className="absolute inset-0 bg-mvcb-black/80" />
         </div>
-        <div className="relative mx-auto flex max-w-3xl flex-col items-center px-6 py-20 text-center sm:px-8 md:py-28">
-          <span className="text-xs font-semibold tracking-wide text-mvcb-orange uppercase">
-            Our Portfolio
-          </span>
-          <h1 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-5xl md:text-6xl">
+        <div className="relative mx-auto flex max-w-6xl flex-col px-8 py-20 sm:px-12 lg:px-16 md:py-28">
+          <h1 className="text-4xl font-extrabold tracking-[-0.02em] uppercase text-white sm:text-5xl md:text-6xl">
             See The Transformation
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-neutral-300">
             Real renovation and restoration work across North &amp; Central
-            Jersey. Drag the slider below to see the difference for
-            yourself.
+            Jersey. Drag the slider below to see the difference for yourself.
           </p>
         </div>
       </section>
 
       {/* FEATURED BEFORE/AFTER */}
-      <section className="bg-background py-16 md:py-24">
-        <div className="mx-auto max-w-4xl px-6 sm:px-8">
-          <div data-reveal className="text-center">
-            <span className="text-xs font-semibold tracking-wide text-mvcb-orange-strong uppercase">
-              Featured Project
-            </span>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-mvcb-black md:text-5xl">
+      <section className="py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-8 sm:px-12 lg:px-16">
+          <div data-reveal className="max-w-2xl">
+            <h2 className="text-3xl font-extrabold tracking-[-0.02em] uppercase text-mvcb-black md:text-5xl">
               Commercial Interior Build-Out
             </h2>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-              From a gutted shell down to the studs, to a finished space
-              ready for clients. Drag the divider to compare.
+              From a gutted shell down to the studs, to a finished space ready
+              for clients. Drag the divider to compare.
             </p>
           </div>
 
@@ -85,10 +77,10 @@ export default function PortfolioPage() {
 
           <div
             data-reveal
-            className="mt-8 grid grid-cols-2 gap-6 border-t border-border pt-8 sm:grid-cols-3"
+            className="mt-8 grid grid-cols-2 gap-6 border-t border-mvcb-line pt-8 sm:grid-cols-2"
           >
             <div>
-              <span className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+              <span className="text-xs font-bold tracking-[0.1em] text-muted-foreground uppercase">
                 Project Type
               </span>
               <p className="mt-1 text-sm font-semibold text-mvcb-black">
@@ -96,7 +88,7 @@ export default function PortfolioPage() {
               </p>
             </div>
             <div>
-              <span className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+              <span className="text-xs font-bold tracking-[0.1em] text-muted-foreground uppercase">
                 Location
               </span>
               <p className="mt-1 text-sm font-semibold text-mvcb-black">
@@ -104,7 +96,7 @@ export default function PortfolioPage() {
               </p>
             </div>
             <div>
-              <span className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+              <span className="text-xs font-bold tracking-[0.1em] text-muted-foreground uppercase">
                 Scope
               </span>
               <p className="mt-1 text-sm font-semibold text-mvcb-black">
@@ -116,24 +108,20 @@ export default function PortfolioPage() {
       </section>
 
       {/* PROJECT GALLERY */}
-      <section className="bg-mvcb-cream py-16 md:py-24">
-        <div className="mx-auto max-w-6xl px-6 sm:px-8">
+      <section className="py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-8 sm:px-12 lg:px-16">
           <div data-reveal className="max-w-2xl">
-            <span className="text-xs font-semibold tracking-wide text-mvcb-orange-strong uppercase">
-              More of Our Work
-            </span>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-mvcb-black md:text-5xl">
+            <h2 className="text-3xl font-extrabold tracking-[-0.02em] uppercase text-mvcb-black md:text-5xl">
               Recent Projects
             </h2>
           </div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {PROJECTS.map((project, index) => (
+          <div className="mt-12 grid md:mt-16 gap-6 md:grid-cols-2">
+            {PROJECTS.map((project) => (
               <div
                 key={project.title}
                 data-reveal
-                style={{ animationDelay: `${index * 80}ms` }}
-                className="overflow-hidden rounded-2xl border border-border bg-card"
+                className="overflow-hidden  border border-mvcb-line bg-background"
               >
                 <div className="relative aspect-[4/3] w-full">
                   <Image
@@ -144,10 +132,10 @@ export default function PortfolioPage() {
                   />
                 </div>
                 <div className="p-5">
-                  <span className="text-xs font-semibold tracking-wide text-mvcb-orange-strong uppercase">
+                  <span className="inline-block  bg-mvcb-sand px-3 py-1 text-xs font-semibold text-mvcb-black">
                     {project.tag}
                   </span>
-                  <h3 className="mt-2 text-base font-semibold text-mvcb-black">
+                  <h3 className="mt-3 text-base font-extrabold tracking-[-0.02em] text-mvcb-black uppercase">
                     {project.title}
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -155,7 +143,7 @@ export default function PortfolioPage() {
                   </p>
                   <Link
                     href="/#contact"
-                    className="mt-3 inline-block text-sm font-semibold text-mvcb-black underline underline-offset-4 hover:text-mvcb-orange-strong"
+                    className="mt-3 inline-block text-sm font-semibold text-mvcb-black underline underline-offset-4 hover:text-mvcb-orange"
                   >
                     Ask About This Project
                   </Link>
@@ -167,26 +155,22 @@ export default function PortfolioPage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="bg-mvcb-black py-16 md:py-24">
+      <section className="py-16 md:py-24">
         <div
           data-reveal
-          className="mx-auto flex max-w-3xl flex-col items-center px-6 text-center sm:px-8"
+          className="mx-auto flex max-w-6xl flex-col bg-mvcb-black px-8 py-12 sm:px-12 md:px-16 md:py-20"
         >
-          <h2 className="text-3xl font-semibold tracking-tight text-white md:text-5xl">
+          <h2 className="text-3xl font-extrabold tracking-[-0.02em] uppercase text-white md:text-5xl">
             Ready to See Your Home Transformed?
           </h2>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-neutral-400">
-            Tell us about your project and we&apos;ll walk you through
-            scope, timeline, and pricing.
+            Tell us about your project and we&apos;ll walk you through scope,
+            timeline, and pricing.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button
-              asChild
-              size="lg"
-              className="h-12 rounded-full bg-mvcb-orange px-8 font-bold text-mvcb-black hover:bg-mvcb-orange-strong"
-            >
-              <a href="tel:+19735550147">Start Your Project</a>
-            </Button>
+            <Action href="/contact" size="lg" withArrow>
+              Start your project
+            </Action>
           </div>
         </div>
       </section>

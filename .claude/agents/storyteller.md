@@ -57,8 +57,9 @@ INVITATION  → One clear action. Talk to us about the building. Not three CTAs.
 - Max 8 words for hero headline
 - Must contain either a worry, a promise, or a plain statement of what we do — no
   marketing-agency abstractions
-- Sans-serif only (Geist) — typography carries the weight through size and weight, not
-  decoration or a display face
+- Sans-serif only (Plus Jakarta Sans) — typography carries the weight through size and
+  weight, not decoration or a display face
+- No eyebrow label above a heading. The headline says it, or nothing does.
 - Plain, confident trade language: "built to last," "restored, not replaced," "we don't cut
   corners." Never "elevate your living experience" or similar agency-speak.
 

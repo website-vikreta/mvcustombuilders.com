@@ -1,7 +1,10 @@
 import Link from "next/link";
+import { Clock, GeoAlt, Instagram, TelephoneFill } from "react-bootstrap-icons";
+
+import Marquee from "@/components/ui/marquee";
+import { CONTAINER } from "@/components/ui/section";
 
 const QUICK_LINKS = [
-  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Our Projects", href: "/portfolio" },
@@ -12,30 +15,50 @@ const QUICK_LINKS = [
 
 export default function SiteFooter() {
   return (
-    <footer className="bg-mvcb-black text-neutral-300">
-      <div className="mx-auto max-w-6xl px-6 py-16 sm:px-8 md:py-20">
-        <div className="grid gap-12 sm:grid-cols-2 md:grid-cols-[1.3fr_1fr_1fr_1fr]">
+    <footer className="mt-auto bg-mvcb-black pt-20 md:pt-32">
+      <div className={CONTAINER}>
+        {/* orange contact card, per the reference's footer block */}
+        <div className="grid grid-cols-1 gap-10 bg-mvcb-orange p-8 md:grid-cols-3 md:p-12">
           <div>
-            <span className="text-lg font-extrabold tracking-tight text-white">
-              MV CUSTOM <span className="text-mvcb-orange">BUILDERS</span>
-            </span>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-neutral-400">
-              A licensed renovation and restoration contractor serving old
-              and historic homes across North and Central New Jersey.
-              Licensed under the NJ Division of Consumer Affairs.
+            <h2 className="text-xs font-bold tracking-[0.1em] text-white/80 uppercase">
+              Get in touch
+            </h2>
+            <a
+              href="tel:+19735550147"
+              className="mt-6 flex items-center gap-3 text-2xl font-extrabold tracking-[-0.02em] text-white underline-offset-4 hover:underline md:text-3xl"
+            >
+              <TelephoneFill className="h-5 w-5 shrink-0" aria-hidden="true" />
+              (973) 555-0147
+            </a>
+            <p className="mt-6 flex items-start gap-3 text-sm text-white/85">
+              <GeoAlt className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+              31 Bridge St, Belleville, NJ 07109
             </p>
+            <p className="mt-3 flex items-start gap-3 text-sm text-white/85">
+              <Clock className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+              Mon &ndash; Sat, 8:00 AM &ndash; 5:00 PM
+            </p>
+            <a
+              href="https://www.instagram.com/mv_custom_builders"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-2 text-sm font-bold tracking-[0.08em] text-white uppercase underline-offset-4 hover:underline"
+            >
+              <Instagram className="h-4 w-4" aria-hidden="true" />
+              @mv_custom_builders
+            </a>
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold tracking-wide text-white uppercase">
-              Quick Links
-            </h3>
-            <ul className="mt-4 space-y-3">
+            <h2 className="text-xs font-bold tracking-[0.1em] text-white/80 uppercase">
+              Company
+            </h2>
+            <ul className="mt-6 space-y-3">
               {QUICK_LINKS.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-neutral-400 hover:text-white"
+                    className="text-sm text-white/85 underline-offset-4 hover:underline"
                   >
                     {link.label}
                   </Link>
@@ -45,43 +68,47 @@ export default function SiteFooter() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold tracking-wide text-white uppercase">
-              Contact Info
-            </h3>
-            <ul className="mt-4 space-y-3 text-sm text-neutral-400">
-              <li>Office: 31 Bridge St, Belleville, NJ 07109</li>
-              <li>
-                Phone:{" "}
-                <a href="tel:+19735550147" className="hover:text-white">
-                  (973) 555-0147
-                </a>
-              </li>
-              <li>Hours: Mon &ndash; Sat, 8:00 AM &ndash; 5:00 PM</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-semibold tracking-wide text-white uppercase">
+            <h2 className="text-xs font-bold tracking-[0.1em] text-white/80 uppercase">
               Credentials
-            </h3>
-            <ul className="mt-4 space-y-3 text-sm text-neutral-400">
+            </h2>
+            <ul className="mt-6 space-y-3 text-sm text-white/85">
               <li>NJ DCA License #13VH12948300</li>
               <li>SBE Certification #SBE202409</li>
               <li>OSHA Certified &amp; Fully Insured</li>
             </ul>
+            <p className="mt-6 max-w-xs text-sm text-white/85">
+              A licensed renovation and restoration contractor for old and
+              historic homes across North and Central New Jersey.
+            </p>
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-2 border-t border-white/10 pt-8 text-xs text-neutral-500 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 py-8 text-xs text-neutral-500 sm:flex-row sm:items-center sm:justify-between">
           <p>&copy; 2026 MV Custom Builders LLC. All rights reserved.</p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
             <Link href="/legal" className="hover:text-white">
               Privacy Policy
             </Link>
-            <p>Built in NJ. Licensed &amp; Insured.</p>
+            <p>
+              Design &amp; Developed by{" "}
+              <a
+                href="https://www.websitevikreta.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white transition-colors hover:text-mvcb-orange"
+              >
+                Website Vikreta
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </p>
           </div>
         </div>
       </div>
+
+      <Marquee
+        text="MV Custom Builders"
+        className="text-ghost-dark text-[12vw] leading-[1.1] font-extrabold tracking-[-0.03em] uppercase"
+      />
     </footer>
   );
 }

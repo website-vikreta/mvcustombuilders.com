@@ -17,14 +17,14 @@
    shadcn/radix components animate in this project. Don't hand-roll a custom transition for
    something the utility classes already cover.
 2. **Hover/focus state?** Plain CSS `transition-colors`/`transition-transform`, 0.2s–0.3s —
-   matches the existing Button pattern. No scale/rotate/shadow-pop gimmicks (see
-   design-system.md accent/shadow rules).
-3. **Scroll or load entrance animation?** No JS animation library is installed — don't add
-   GSAP/Framer Motion for this. Use a `motion-safe:`-gated Tailwind arbitrary-value animation
-   or a `@keyframes` block in `app/globals.css`. If the animation is the `fade-up-in`/
-   `float-y` pattern `docs/DESIGN_GUIDE.md` names, define it there under those exact names if
-   it doesn't exist yet (see motion-system.md) — don't invent a differently-named equivalent.
-4. Confirm `prefers-reduced-motion` is respected (`motion-safe:`, not a bare animation).
+   matches the existing `Action` pattern. No scale/rotate/shadow-pop gimmicks — the site
+   ships no box shadows at all (see design-system.md).
+3. **Scroll entrance or parallax?** Add `data-reveal` (or `data-parallax` +
+   `data-parallax-strength`) to the element and make sure the page renders
+   `<ScrollRevealInit />`. That is the whole job — no per-component GSAP, no refs, no new
+   keyframes, no second library. See motion-system.md.
+4. Reduced motion is already handled inside `ScrollRevealInit`'s `gsap.matchMedia` block —
+   don't add a second guard, and don't hide anything in CSS.
 5. No animation on first paint above the fold.
 
 ## Output

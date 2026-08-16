@@ -37,7 +37,9 @@ export default function Home() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(LOCAL_BUSINESS_SCHEMA) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(LOCAL_BUSINESS_SCHEMA),
+        }}
       />
       <SiteHeader />
       <main>
