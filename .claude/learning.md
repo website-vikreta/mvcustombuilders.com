@@ -64,3 +64,63 @@ here so the site stays uniform across pages and sessions.
   `app/globals.css` — define them there, under those exact names, the first time a page
   actually needs one).
 - Date: 2026-08-13
+
+## Navigation & Page Structure
+### [Nav] — single-page anchor nav until real routes exist
+- Rule: `components/ui/site-header.tsx` and `site-footer.tsx` link to homepage sections via
+  hash anchors (`#home`, `#about`, `#services`, `#portfolio`, `#testimonials`, `#contact`),
+  not real routes — because only `/` exists. When a section becomes its own route (e.g.
+  `/about`), update the nav links to real paths at that point; don't pre-build routes.
+- Where: `components/ui/site-header.tsx`, `components/ui/site-footer.tsx`.
+- Date: 2026-08-14
+
+### [Component split] — header/footer are shared, page sections are not
+- Rule: `SiteHeader`/`SiteFooter` live as their own `components/ui/*.tsx` files because
+  every future page will reuse them. Homepage-only sections (hero, services, portfolio,
+  etc.) stay as local, unexported functions inside one `components/ui/home-page.tsx` file
+  instead of one file per section — don't create `components/sections/` until a second page
+  actually needs to reuse one of those sections.
+- Where: `components/ui/site-header.tsx`, `components/ui/site-footer.tsx`,
+  `components/ui/home-page.tsx`.
+- Date: 2026-08-14
+
+## Motion & Animation
+### [Scroll reveal] — data-reveal + ScrollRevealInit, not a library
+- Rule: To fade an element up as it scrolls into view, add `data-reveal` to it (optionally
+  `style={{ animationDelay: "Nms" }}` on mapped list items for a subtle stagger — 60–80ms
+  per index is the value used so far). One `<ScrollRevealInit />` (client component, no
+  visual output) per page wires an `IntersectionObserver` over every `[data-reveal]`
+  element and toggles `.is-visible` once. The CSS (in `app/globals.css`) only hides
+  `[data-reveal]` content under `.js-reveal` on `<html>`, and `ScrollRevealInit` only adds
+  that class when JS has run AND `prefers-reduced-motion` allows it — so content stays
+  fully visible with no JS and with reduced motion, no `<noscript>` needed. Reuses the
+  `fade-up-in` keyframe (now defined in `app/globals.css`, exact spec from
+  `.claude/standards/motion-system.md`). Never wrap the hero/above-the-fold content in
+  `data-reveal` — first paint must stay instant.
+- Where: `components/ui/scroll-reveal-init.tsx`, `app/globals.css`,
+  `components/ui/home-page.tsx` (every section below the hero).
+- Date: 2026-08-14
+
+### [Count-up numbers] — IntersectionObserver + requestAnimationFrame, no library
+- Rule: For a stat that should animate from 0 to its real value once scrolled into view
+  (e.g. "280+"), use a small dedicated client component with its own
+  `IntersectionObserver` (fires once, threshold 0.4) gating a `requestAnimationFrame` count
+  from 0 to the parsed target over ~1200ms with a cubic ease-out. Parse the numeric prefix
+  and keep any suffix (`+`, `%`) static. Non-numeric stats (e.g. "NJ") render as-is, no
+  counting. Reduced motion collapses the animation to duration 0 (same code path, first
+  frame lands on the final value) rather than a separate synchronous branch — calling
+  `setState` synchronously in an effect body (outside a callback) trips
+  `react-hooks/set-state-in-effect` in this repo's eslint config.
+- Where: `components/ui/stat-counters.tsx`.
+- Date: 2026-08-14
+
+## Content / Photography
+### [Photography] — don't reuse one real photo with fabricated alt text
+- Rule: When real project photography doesn't exist yet for a section (e.g. portfolio
+  before/afters), don't repeat the one real photo in the repo with invented alt text
+  describing a different (fake) scene — that's dishonest alt text. Instead use the existing
+  `bg-blueprint-grid-light` texture (already an approved non-photo exception, from the
+  coming-soon page) as a clearly-labeled placeholder ("Before / After Coming Soon") until
+  real photos are supplied.
+- Where: portfolio section, `components/ui/home-page.tsx`.
+- Date: 2026-08-14
