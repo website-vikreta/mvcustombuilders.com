@@ -1,17 +1,18 @@
 "use client";
 
 import { Menu, Phone, X } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 
 const NAV_LINKS = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Testimonials", href: "/testimonials" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const PHONE_DISPLAY = "(973) 555-0147";
@@ -23,8 +24,8 @@ export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 sm:px-8 md:h-20">
-        <a
-          href="#home"
+        <Link
+          href="/"
           className="flex flex-col leading-none"
           onClick={() => setOpen(false)}
         >
@@ -34,17 +35,17 @@ export default function SiteHeader() {
           <span className="text-[0.65rem] font-semibold tracking-[0.3em] text-mvcb-orange-strong">
             BUILDERS
           </span>
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
           {NAV_LINKS.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-mvcb-black"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -60,7 +61,7 @@ export default function SiteHeader() {
             asChild
             className="rounded-full bg-mvcb-orange px-5 font-bold text-mvcb-black hover:bg-mvcb-orange-strong"
           >
-            <a href="#contact">Get a Free Quote</a>
+            <Link href="/contact">Get a Free Quote</Link>
           </Button>
         </div>
 
@@ -83,14 +84,14 @@ export default function SiteHeader() {
         <div className="border-t border-border bg-background px-6 py-6 md:hidden">
           <nav className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
                 className="rounded-lg px-3 py-3 text-base font-medium text-mvcb-black hover:bg-muted"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
           <div className="mt-4 flex flex-col gap-3 border-t border-border pt-4">
@@ -105,9 +106,9 @@ export default function SiteHeader() {
               asChild
               className="h-12 rounded-full bg-mvcb-orange font-bold text-mvcb-black hover:bg-mvcb-orange-strong"
             >
-              <a href="#contact" onClick={() => setOpen(false)}>
+              <Link href="/contact" onClick={() => setOpen(false)}>
                 Get a Free Quote
-              </a>
+              </Link>
             </Button>
           </div>
         </div>
