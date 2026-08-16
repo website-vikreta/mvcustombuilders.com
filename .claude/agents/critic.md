@@ -49,8 +49,17 @@ extreme and route it back.
 ### Performance / Accessibility (Weight: 15%)
 - Will images cause layout shift? (`next/image`, explicit dimensions or `fill` in an
   aspect-ratio container)
-- Does entrance motion respect `prefers-reduced-motion` (`motion-safe:` on
-  `fade-up-in`/`float-y` or any new animation)?
+- Does scroll motion go through `data-reveal`/`data-parallax` (never per-component GSAP),
+  and is it inside the `gsap.matchMedia("(prefers-reduced-motion: no-preference)")` block?
+- Is anything hidden or unreachable without hover? (hover is desktop-only)
+- Is the heading uppercase with a lowercase orange eyebrow above it? (a generic uppercase
+  category label is still wrong)
+- Any `rounded-*` class? (the site is square-cornered)
+- Any `shadow-*` class? (the site ships zero box shadows)
+- Any `grid-cols-3`, or a bespoke section `py-*`? (breaks column alignment / the one
+  spacing scale)
+- Any clickable that isn't `Action`?
+- Any dead link — `href="#"` or a route that doesn't exist?
 - Does orange-on-black or orange-on-white text pass AA contrast?
 - Is there a title tag and meta description?
 

@@ -3,8 +3,9 @@
 ## Rules That Are Not Negotiable
 - TypeScript. No `any` without a comment explaining why.
 - `next/image` for every image. No `<img>` tags.
-- `next/font` for every font (already wired: Geist Sans via `next/font/google` in
-  `app/layout.tsx`). No CDN font links, no second typeface.
+- `next/font` for every font (already wired: Plus Jakarta Sans via `next/font/google` in
+  `app/layout.tsx`). No CDN font links, no `<link rel="stylesheet">` to Google Fonts, no
+  second typeface.
 - CSS custom properties / Tailwind tokens for design values. No hardcoded hex in component
   files — use `bg-mvcb-orange`, `text-mvcb-black`, etc. or the shadcn neutral utilities.
 - Accessibility: every interactive element is keyboard-navigable, with a visible focus state.
@@ -17,7 +18,7 @@
 Follows the shadcn/Next.js convention already established in this repo — lowercase
 kebab-case filenames, PascalCase exported component names:
 ```
-components/ui/button.tsx              export function Button
+components/ui/action.tsx              export default function Action
 components/ui/input.tsx               export function Input
 components/ui/under-construction.tsx  export default function UnderConstructionBlock
 app/page.tsx                          App Router convention
@@ -33,7 +34,7 @@ file already in the repo and with new shadcn CLI output.
 
 import { useState } from "react";
 
-import { Button } from "@/components/ui/button";
+import Action from "@/components/ui/action";
 import { cn } from "@/lib/utils";
 
 interface ExampleProps {
@@ -55,9 +56,12 @@ state, effects, or event handlers actually require it, matching
 - `<html lang="en">` — already set in `app/layout.tsx`.
 - All images: meaningful, specific `alt` text (or `alt=""` only for truly decorative images).
 - Color contrast: verify AA for any new orange-on-black/orange-on-white text pairing.
-- `prefers-reduced-motion`: gate non-essential animation behind `motion-safe:`.
-- Focus indicators: never remove `outline`/`focus-visible` styling without replacing it —
-  shadcn's `focus-visible:ring-*` on Button/Input already handles this, don't override it away.
+- `prefers-reduced-motion`: handled centrally by `ScrollRevealInit`'s `gsap.matchMedia`
+  block. Any animation outside it still needs its own guard.
+- Focus indicators: never remove `outline`/`focus-visible` styling without replacing it.
+  `Action` uses `focus-visible:outline-2 outline-offset-2 outline-mvcb-orange-strong` — an
+  outline, not a ring, because rings are box-shadows and the site ships none.
+  `Input`/`Textarea` keep their shadcn focus styling.
 - Semantic HTML: `<nav>`, `<main>`, `<section>` — not everything is a `<div>`.
 - Form fields: a real `<label>` (visually hidden with `sr-only` is fine, see
   `under-construction.tsx`'s email field) — never a placeholder used as the only label.

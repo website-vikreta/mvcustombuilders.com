@@ -14,7 +14,8 @@
 
 ### If LCP > 2.5s
 - Is the hero image using `priority` on `next/image`? (matches the coming-soon page pattern)
-- Is the hero font preloaded? (Geist via `next/font/google` handles this automatically)
+- Is the hero font preloaded? (Plus Jakarta Sans via `next/font/google` handles this
+  automatically)
 - Is there a large render-blocking script above the fold?
 - Is the LCP element above the fold at all?
 

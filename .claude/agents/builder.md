@@ -14,36 +14,37 @@ Framework:     Next.js 16 (App Router)
 Language:      TypeScript
 Styling:       Tailwind CSS v4, CSS-first config in app/globals.css (no tailwind.config.js)
 UI primitives: shadcn/ui — radix-nova style, neutral base color, cssVariables (components.json)
-Icons:         lucide-react (shadcn default) + @remixicon/react — small, functional UI icons
-               only, never hero/section artwork
+Icons:         react-bootstrap-icons ONLY — small, functional UI icons, never hero/section
+               artwork. lucide-react and @remixicon/react are uninstalled; if the shadcn CLI
+               emits a lucide import, swap it.
 Forms:         @emailjs/browser — already installed for contact-style forms
-Fonts:         Geist Sans via next/font/google, wired in app/layout.tsx as
-               --font-geist-sans (NOT the standalone `geist` npm package). Geist Mono is
-               only for incidental technical/numeric accents if ever needed.
+Fonts:         Plus Jakarta Sans via next/font/google, wired in app/layout.tsx as
+               --font-jakarta-sans. Single family, no second typeface.
 Images:        next/image (mandatory, no exceptions)
-Animation:     No animation library installed. Use the existing CSS keyframes in
-               app/globals.css (fade-up-in, float-y) gated behind motion-safe:. Reach for
-               Framer Motion/GSAP only if a real interaction need can't be done in CSS —
-               and confirm with the user first, since neither is currently a dependency.
+Animation:     gsap + ScrollTrigger, wired once per page by components/ui/scroll-reveal-init.tsx.
+               Mark elements data-reveal / data-parallax; don't write per-component GSAP or
+               hand-rolled IntersectionObserver code, and don't add a second motion library.
+               See .claude/standards/motion-system.md.
 ```
 
 ---
 
 ## Architecture Rules
 
-### Routing (current + likely growth)
+### Routing (current)
 ```
-/                          Coming-soon page today (app/page.tsx → UnderConstructionBlock)
+/  /about  /services  /portfolio  /testimonials  /certifications  /contact  /legal
 ```
-The site is currently a single coming-soon page. Don't scaffold `/about`, `/services`,
-`/projects`, `/contact`, etc. ahead of being asked — add routes when the page is actually
-being built, matching whatever the Storyteller handoff defines for that page.
+Eight live routes, each `app/<route>/page.tsx` (metadata + SiteHeader/SiteFooter only)
+wrapping a `components/ui/<route>-page.tsx`. Don't scaffold further routes (`/blog`,
+`/careers`, ...) ahead of being asked, and don't link to one that doesn't exist — route to
+`/contact` instead.
 
 ### Component Architecture
 ```
 app/                       App Router pages
 components/
-  ui/                      shadcn primitives (Button, Input, ...) + hand-built blocks
+  ui/                      action/section/carousels + shadcn primitives + page blocks
                            (e.g. under-construction.tsx). Check here before adding a new
                            shadcn primitive — install additions via the shadcn CLI so they
                            stay on the radix-nova style.
@@ -57,10 +58,11 @@ belongs in it.
 ---
 
 ## Motion System (Implementation)
-- Reuse the existing keyframes in `app/globals.css` (`fade-up-in`, `float-y`) rather than
-  hand-rolling new ones or adding a library.
-- Every non-essential entrance animation is wrapped in `motion-safe:` so
-  `prefers-reduced-motion` is respected — follow that existing pattern for anything new.
+- Scroll motion is declarative: `data-reveal` / `data-parallax` + one `<ScrollRevealInit />`
+  per page. No per-component GSAP, no refs, no new keyframes, no second library.
+- Reduced motion is handled centrally inside `ScrollRevealInit`'s `gsap.matchMedia` block.
+  Don't add a second guard and never hide reveal targets in CSS — that is what keeps the
+  no-JS render complete.
 - No animation on first paint above the fold — must be instant.
 - Keep motion restrained: this is a trade-craft brand (sturdy, honest, precise), not a
   flashy startup — see `docs/DESIGN_GUIDE.md`.
@@ -73,7 +75,8 @@ belongs in it.
 - Lighthouse: 95+ across all four metrics — this is a lean stack, there's no excuse not to.
 - Images: `next/image` with `fill` + `object-cover` inside an aspect-ratio container so crops
   adapt per breakpoint; explicit width/height where `fill` isn't used.
-- Touch targets ≥44px tall on mobile (shadcn `Button` `default`/`lg` sizes already clear this).
+- Touch targets ≥44px tall on mobile (`Action` `md`/`lg` sizes already clear this).
+- No box shadows anywhere, and no bespoke section padding — use `Section`/`SECTION_Y`.
 - No new dependency for something a few lines of Tailwind/CSS already covers.
 
 ---
