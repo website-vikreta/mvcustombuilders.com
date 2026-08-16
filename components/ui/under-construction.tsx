@@ -1,11 +1,11 @@
 "use client";
 
 import emailjs from "@emailjs/browser";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { CheckCircleFill } from "react-bootstrap-icons";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import { Button } from "@/components/ui/button";
+import Action from "@/components/ui/action";
 import { Input } from "@/components/ui/input";
 
 // EmailJS credentials come from .env locally (same three NEXT_PUBLIC_EMAILJS_*
@@ -75,30 +75,27 @@ export default function UnderConstructionBlock() {
       </div>
 
       {/* text + email capture */}
-      <div className="relative order-1 flex min-h-screen flex-col items-center justify-center overflow-y-auto bg-mvcb-cream px-6 py-16 text-center sm:px-8 md:order-2 md:h-full md:min-h-0 md:w-1/2 md:px-16">
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-blueprint-grid-light"
-        />
+      <div className="relative order-1 flex min-h-screen flex-col items-center justify-center overflow-y-auto bg-mvcb-sand px-6 py-16 text-center sm:px-8 md:order-2 md:h-full md:min-h-0 md:w-1/2 md:px-16">
+        <div aria-hidden="true" className="absolute inset-0 bg-mvcb-sand" />
         <div className="relative flex flex-col items-center text-center">
           {/* Placeholder: swap for the real logo mark once it's available. */}
-          <span className="text-lg font-extrabold tracking-tight text-mvcb-black">
+          <span className="text-lg font-extrabold tracking-[-0.02em] uppercase text-mvcb-black">
             MV Custom Builders
           </span>
 
-          <h1 className="mt-6 text-4xl font-black tracking-tight text-mvcb-black sm:text-5xl md:text-6xl">
+          <h1 className="mt-6 text-4xl font-extrabold tracking-[-0.02em] uppercase text-mvcb-black sm:text-5xl md:text-6xl">
             We&apos;re under construction
           </h1>
 
           <p className="mt-4 max-w-md text-base text-muted-foreground">
-            We&apos;re rebuilding our site from the ground up. Leave your
-            email and we&apos;ll let you know the moment we break ground.
+            We&apos;re rebuilding our site from the ground up. Leave your email
+            and we&apos;ll let you know the moment we break ground.
           </p>
 
           <div className="mt-8 w-full max-w-md">
             {status === "success" ? (
-              <div className="flex items-center gap-3 rounded-2xl border border-emerald-600/20 bg-emerald-600/10 p-5 text-mvcb-black">
-                <CheckCircle2 className="h-6 w-6 shrink-0 text-emerald-700" />
+              <div className="flex items-center gap-3  border border-emerald-600/20 bg-emerald-600/10 p-5 text-mvcb-black">
+                <CheckCircleFill className="h-6 w-6 shrink-0 text-emerald-700" />
                 <p className="text-sm font-semibold">
                   You&apos;re on the list. We&apos;ll reach out the moment we
                   break ground.
@@ -124,23 +121,17 @@ export default function UnderConstructionBlock() {
                       onBlur={validate}
                       placeholder="you@example.com"
                       aria-invalid={fieldError ? "true" : "false"}
-                      className="h-12 rounded-full px-5 text-sm"
+                      className="h-12  px-5 text-sm"
                     />
                   </div>
-                  <Button
+                  <Action
                     type="submit"
-                    disabled={status === "sending"}
-                    className="h-12 shrink-0 rounded-full bg-mvcb-orange px-6 font-bold text-mvcb-black hover:bg-mvcb-orange-strong disabled:opacity-70"
+                    loading={status === "sending"}
+                    loadingLabel="Joining"
+                    className="shrink-0"
                   >
-                    {status === "sending" ? (
-                      <span className="flex items-center gap-2">
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        Joining...
-                      </span>
-                    ) : (
-                      "Notify Me"
-                    )}
-                  </Button>
+                    Notify me
+                  </Action>
                 </div>
 
                 {fieldError && (

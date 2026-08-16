@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "react-bootstrap-icons";
 import Image from "next/image";
 import { useId, useState } from "react";
 
@@ -24,10 +24,10 @@ export default function BeforeAfterSlider({
 
   return (
     <div
-      className={`relative aspect-[4/3] w-full touch-none overflow-hidden rounded-2xl select-none ${className}`}
+      className={`relative aspect-[4/3] w-full touch-none overflow-hidden  select-none ${className}`}
     >
       <Image src={beforeSrc} alt={beforeAlt} fill className="object-cover" />
-      <span className="absolute bottom-4 left-4 rounded-full bg-mvcb-black/70 px-3 py-1 text-xs font-semibold tracking-wide text-white uppercase">
+      <span className="absolute bottom-4 left-4  bg-mvcb-black/70 px-3 py-1 text-xs font-semibold tracking-wide text-white uppercase">
         Before
       </span>
 
@@ -36,17 +36,17 @@ export default function BeforeAfterSlider({
         style={{ clipPath: `inset(0 ${100 - value}% 0 0)` }}
       >
         <Image src={afterSrc} alt={afterAlt} fill className="object-cover" />
-        <span className="absolute right-4 bottom-4 rounded-full bg-mvcb-orange px-3 py-1 text-xs font-semibold tracking-wide text-mvcb-black uppercase">
+        <span className="absolute right-4 bottom-4  bg-mvcb-orange px-3 py-1 text-xs font-semibold tracking-wide text-mvcb-black uppercase">
           After
         </span>
       </div>
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 w-0.5 bg-white shadow-[0_0_0_1px_rgba(0,0,0,0.15)] transition-[left] duration-100 ease-out"
+        className="pointer-events-none absolute inset-y-0 w-0.5 bg-white transition-[left] duration-100 ease-out"
         style={{ left: `${value}%` }}
       >
-        <div className="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-mvcb-black shadow-lg">
+        <div className="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center  bg-white text-mvcb-black border border-mvcb-line">
           <ChevronLeft className="-mr-1 h-4 w-4" aria-hidden="true" />
           <ChevronRight className="-ml-1 h-4 w-4" aria-hidden="true" />
         </div>

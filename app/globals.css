@@ -7,7 +7,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-jakarta-sans);
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -49,16 +49,28 @@
   --color-mvcb-orange: var(--mvcb-orange);
   --color-mvcb-orange-strong: var(--mvcb-orange-strong);
   --color-mvcb-cream: var(--mvcb-cream);
+  --color-mvcb-sand: var(--mvcb-sand);
+  --color-mvcb-charcoal: var(--mvcb-charcoal);
+  --color-mvcb-line: var(--mvcb-line);
+  --color-mvcb-navy: var(--mvcb-navy);
 }
 
 :root {
-  /* MV Custom Builders brand palette (coming-soon page) */
+  /* MV Custom Builders brand palette */
   --mvcb-black: #111111;
   --mvcb-orange: #f97316;
   /* darker shade used wherever orange carries text/foreground contrast (buttons, headline) */
   --mvcb-orange-strong: #ea580c;
   /* warm off-white, used behind light sections instead of stark white */
   --mvcb-cream: #faf7f2;
+  /* one step deeper than cream — separates stacked light sections without a hard cut */
+  --mvcb-sand: #f0eae0;
+  /* warm dark, used for dark panels that sit next to photography */
+  --mvcb-charcoal: #1f1d1a;
+  /* warm hairline — every border, divider, and the column rules */
+  --mvcb-line: #e2ddd4;
+  /* deep blue-black, the one non-orange solid tile colour */
+  --mvcb-navy: #10222d;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -82,7 +94,8 @@
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
+  /* square-cornered by design — nothing on the site is rounded except true circles */
+  --radius: 0rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -127,44 +140,26 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-/* barely-there blueprint grid, used behind light sections — warm gray, not black */
-.bg-blueprint-grid-light {
-  background-image:
-    linear-gradient(rgba(120, 108, 90, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(120, 108, 90, 0.04) 1px, transparent 1px);
-  background-size: 44px 44px;
+/* scroll-snap tracks (testimonial carousel) keep their own scrollbar hidden —
+   the arrow buttons and swipe are the affordance */
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
 
-@keyframes fade-up-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ── Ghost display type ───────────────────────────────────────────────────────
+   Oversized outlined lettering used as a section divider and as the footer
+   watermark. Outline only: no fill, so it reads as structure rather than copy.
+   Always aria-hidden — it repeats text that is already on the page. */
+.text-ghost {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--mvcb-line);
 }
-
-@keyframes float-y {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-/* Scroll-triggered reveal: ScrollRevealInit adds "js-reveal" to <html> only when JS has
-   run and prefers-reduced-motion allows it, so content stays visible with no JS and with
-   reduced motion — see components/ui/scroll-reveal-init.tsx. */
-.js-reveal [data-reveal] {
-  opacity: 0;
-  transform: translateY(12px);
-}
-.js-reveal [data-reveal].is-visible {
-  animation: fade-up-in 0.6s ease-out forwards;
+.text-ghost-dark {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.22);
 }
 
 @layer base {
@@ -187,5 +182,24 @@
   }
   p {
     line-height: 1.4;
+  }
+
+  /* Brand-dark highlight on selected text, everywhere. */
+  ::selection {
+    background-color: var(--mvcb-black);
+    color: white;
+  }
+
+  /* No custom cursor on this site — native pointer everywhere, but every
+     actionable element gets an explicit hand cursor rather than relying on
+     the browser default (buttons default to `cursor: default`, not
+     `pointer`). Everything else stays the normal arrow/text cursor. */
+  a[href],
+  button:not(:disabled),
+  [role="button"],
+  select,
+  label[for],
+  summary {
+    cursor: pointer;
   }
 }
