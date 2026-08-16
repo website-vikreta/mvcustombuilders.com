@@ -115,6 +115,61 @@ here so the site stays uniform across pages and sessions.
 - Date: 2026-08-14
 
 ## Content / Photography
+### [Figma reference] — reskin, don't copy the file's literal theme
+- Rule: The `mvcustombuilders` Figma file (`GAj7JAlVa4YdztIM6IUSX7`) renders every page in a
+  near-black theme with an `Outfit` display font and a solid-orange gradient CTA banner. None
+  of that is usable as-is: it breaks the locked rules (Geist-only, orange as spotlight never a
+  fill, mostly light/neutral sections). Pull structure, section order, and factual copy
+  (stats, credentials, license numbers) from `get_design_context`, then rebuild the visual
+  layer against `docs/DESIGN_GUIDE.md` and `.claude/context/brand.md` — light/cream sections
+  with `mvcb-black` reserved for hero + final-CTA high-contrast moments, Geist only, lucide
+  icons instead of the file's exported SVGs. Also reframe any "custom home builder" / new-build
+  language in the source copy to the site's actual renovation/restoration positioning (see
+  `.claude/context/business.md`) — the Figma file's product-level copy assumes a generalist
+  new-build company, not a historic-restoration specialist.
+- Where: `components/ui/about-page.tsx` (node `2:782`); apply the same conversion to the
+  remaining Figma page frames — Services `2:941`, Portfolio `2:1110`, Contact `2:1347`,
+  Testimonials `2:1512`, Certifications `2:1737`, Legal `2:1878` — all under page id `0:1`.
+- Date: 2026-08-16
+
+### [Page-specific component files] — one file per route, mirrors home-page.tsx
+- Rule: Each real route (`/about`, `/services`, ...) gets its own
+  `components/ui/{route}-page.tsx` holding that page's sections as local unexported
+  functions/JSX (same pattern as `home-page.tsx`), wrapped by a thin `app/{route}/page.tsx`
+  that only adds `SiteHeader`, `SiteFooter`, and route `metadata`. Don't put page content
+  directly in `app/{route}/page.tsx`.
+- Where: `components/ui/about-page.tsx` + `app/about/page.tsx`.
+- Date: 2026-08-16
+
+### [Real photo reuse] — the one real photo can be a decorative dark-overlay hero on other pages
+- Rule: `public/images/under-construction-hero.webp` is the only real project photo in the
+  repo. The home page already uses it as a contentful hero image with real alt text. Other
+  pages may reuse the same file as a *decorative* dark-overlay hero background (`aria-hidden`,
+  `alt=""`, `opacity-40` + a `mvcb-black/70` scrim, text overlaid on top) since the text
+  carries the meaning there, not the image, so it's not fabricated alt text for a different
+  scene. Don't give it a second real, descriptive alt text on a second page. For photo slots
+  that need to be a real contentful image (e.g. a team photo, a specific job-site shot) and no
+  real photo exists yet, use the `bg-blueprint-grid-light` placeholder card pattern instead
+  (see the entry below) — don't stretch the one real photo to fill that role.
+- Where: `components/ui/about-page.tsx` hero section.
+- Date: 2026-08-16
+
+### [Testimonials] — reuse given client quotes, but never fabricate a review platform stat
+- Rule: The Figma testimonials page invents a specific, checkable statistic ("4.9 out of 5,
+  50+ Google Verified Reviews") and tags every card "GOOGLE REVIEW" with a 5-star row. There is
+  no real data behind that number, and presenting it as fact is a false, checkable claim (unlike
+  a placeholder texture, which reads as obviously unfinished). Drop the fabricated rating/count
+  and the per-card "GOOGLE REVIEW" badge/stars entirely; keep only the given quote, name,
+  location, and a real link out to Google search/reviews for anyone who wants to check for
+  themselves — same pattern the home page already used. The client-supplied testimonial
+  quotes/names themselves (Robert & Maria S., Jason K., Daniel L., plus Elena G., Thomas D.,
+  Marcus & Jane V. added on the testimonials page) are still used as given per
+  `.claude/context/business.md`, only re-tagged from "Custom Home Building"/"New Construction
+  Framing" service categories to the site's real renovation service names.
+- Where: `components/ui/testimonials-page.tsx`; `components/ui/home-page.tsx` testimonials
+  section already followed the no-fabricated-stat half of this rule.
+- Date: 2026-08-16
+
 ### [Photography] — don't reuse one real photo with fabricated alt text
 - Rule: When real project photography doesn't exist yet for a section (e.g. portfolio
   before/afters), don't repeat the one real photo in the repo with invented alt text

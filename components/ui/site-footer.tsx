@@ -1,10 +1,13 @@
+import Link from "next/link";
+
 const QUICK_LINKS = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Our Projects", href: "#portfolio" },
-  { label: "Client Testimonials", href: "#testimonials" },
-  { label: "Contact Team", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Our Projects", href: "/portfolio" },
+  { label: "Client Testimonials", href: "/testimonials" },
+  { label: "Certifications", href: "/certifications" },
+  { label: "Contact Team", href: "/contact" },
 ];
 
 export default function SiteFooter() {
@@ -30,12 +33,12 @@ export default function SiteFooter() {
             <ul className="mt-4 space-y-3">
               {QUICK_LINKS.map((link) => (
                 <li key={link.href}>
-                  <a
+                  <Link
                     href={link.href}
                     className="text-sm text-neutral-400 hover:text-white"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -71,7 +74,12 @@ export default function SiteFooter() {
 
         <div className="mt-16 flex flex-col gap-2 border-t border-white/10 pt-8 text-xs text-neutral-500 sm:flex-row sm:items-center sm:justify-between">
           <p>&copy; 2026 MV Custom Builders LLC. All rights reserved.</p>
-          <p>Built in NJ. Licensed &amp; Insured.</p>
+          <div className="flex items-center gap-4">
+            <Link href="/legal" className="hover:text-white">
+              Privacy Policy
+            </Link>
+            <p>Built in NJ. Licensed &amp; Insured.</p>
+          </div>
         </div>
       </div>
     </footer>
