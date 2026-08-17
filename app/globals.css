@@ -184,10 +184,18 @@
     line-height: 1.4;
   }
 
-  /* Brand-dark highlight on selected text, everywhere. */
+  /* Brand-dark highlight on selected text, everywhere — inverted to a white
+     highlight on dark-toned panels so the selection stays visible instead of
+     disappearing into a black-on-black block. */
   ::selection {
     background-color: var(--mvcb-black);
     color: white;
+  }
+
+  .bg-mvcb-black ::selection,
+  .bg-mvcb-navy ::selection {
+    background-color: white;
+    color: var(--mvcb-black);
   }
 
   /* No custom cursor on this site — native pointer everywhere, but every
