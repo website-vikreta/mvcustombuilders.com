@@ -95,14 +95,27 @@ export default function SiteHeader() {
       "(prefers-reduced-motion: reduce)",
     ).matches;
     const barHeight = bar.offsetHeight;
+    let hidden = false;
+    let anchor = 0;
 
     const trigger = ScrollTrigger.create({
       start: 0,
       onUpdate: (self) => {
-        const hide =
-          self.direction === 1 && self.scroll() > barHeight;
+        const scroll = self.scroll();
+        const delta = scroll - anchor;
+        // Ignore sub-5px net movement from the last decision point: trackpad
+        // and smooth-scroll frames arrive as many tiny per-tick deltas, and
+        // toggling (or re-anchoring) on each one is what reads as a shake.
+        // Only move the anchor once movement actually clears the dead zone,
+        // so small same-direction frames keep accumulating toward it instead
+        // of resetting every tick.
+        if (Math.abs(delta) < 5) return;
+        anchor = scroll;
+        const hide = delta > 0 && scroll > barHeight;
+        if (hide === hidden) return;
+        hidden = hide;
         gsap.to(bar, {
-          height: hide ? 0 : "auto",
+          height: hide ? 0 : barHeight,
           duration: reduced ? 0 : 0.3,
           ease: "power2.inOut",
           overwrite: true,
