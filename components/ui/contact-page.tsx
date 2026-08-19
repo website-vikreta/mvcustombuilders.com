@@ -58,7 +58,10 @@ export default function ContactPage() {
   const [phone, setPhone] = useState("");
   const [projectType, setProjectType] = useState("");
   const [message, setMessage] = useState("");
-  const [fieldError, setFieldError] = useState<string | null>(null);
+  const [fieldError, setFieldError] = useState<{
+    field: "name" | "email";
+    message: string;
+  } | null>(null);
   const [status, setStatus] = useState<SubmitStatus>("idle");
 
   useEffect(() => {
@@ -69,11 +72,16 @@ export default function ContactPage() {
 
   function validate() {
     if (!name.trim()) {
-      setFieldError("Enter your name.");
+      setFieldError({ field: "name", message: "Enter your name." });
+      document.getElementById("name")?.focus();
       return false;
     }
     if (!EMAIL_PATTERN.test(email)) {
-      setFieldError("Enter a valid email address.");
+      setFieldError({
+        field: "email",
+        message: "Enter a valid email address.",
+      });
+      document.getElementById("email")?.focus();
       return false;
     }
     setFieldError(null);
@@ -164,9 +172,10 @@ export default function ContactPage() {
                         value={name}
                         onChange={(event) => {
                           setName(event.target.value);
-                          if (fieldError) setFieldError(null);
+                          if (fieldError?.field === "name") setFieldError(null);
                         }}
                         placeholder="John Doe"
+                        aria-invalid={fieldError?.field === "name"}
                         className="mt-2 h-11  px-4"
                       />
                     </div>
@@ -204,10 +213,10 @@ export default function ContactPage() {
                       value={email}
                       onChange={(event) => {
                         setEmail(event.target.value);
-                        if (fieldError) setFieldError(null);
+                        if (fieldError?.field === "email") setFieldError(null);
                       }}
                       placeholder="you@example.com"
-                      aria-invalid={fieldError ? "true" : "false"}
+                      aria-invalid={fieldError?.field === "email"}
                       className="mt-2 h-11  px-4"
                     />
                   </div>
@@ -253,7 +262,7 @@ export default function ContactPage() {
                       role="alert"
                       className="text-sm font-medium text-mvcb-orange"
                     >
-                      {fieldError}
+                      {fieldError.message}
                     </p>
                   )}
                   {status === "error" && (
