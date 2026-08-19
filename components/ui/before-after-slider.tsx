@@ -2,7 +2,7 @@
 
 import { ChevronLeft, ChevronRight } from "react-bootstrap-icons";
 import Image from "next/image";
-import { useId, useState } from "react";
+import { useId, useRef, useState } from "react";
 
 type BeforeAfterSliderProps = {
   beforeSrc: string;
@@ -20,11 +20,34 @@ export default function BeforeAfterSlider({
   className = "",
 }: BeforeAfterSliderProps) {
   const [value, setValue] = useState(50);
+  const containerRef = useRef<HTMLDivElement>(null);
   const labelId = useId();
+
+  function updateFromClientX(clientX: number) {
+    const el = containerRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const pct = ((clientX - rect.left) / rect.width) * 100;
+    setValue(Math.min(100, Math.max(0, pct)));
+  }
 
   return (
     <div
-      className={`relative aspect-[4/3] w-full touch-none overflow-hidden  select-none ${className}`}
+      ref={containerRef}
+      role="slider"
+      tabIndex={0}
+      aria-labelledby={labelId}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={Math.round(value)}
+      onMouseMove={(event) => updateFromClientX(event.clientX)}
+      onMouseLeave={() => setValue(50)}
+      onTouchMove={(event) => updateFromClientX(event.touches[0].clientX)}
+      onKeyDown={(event) => {
+        if (event.key === "ArrowLeft") setValue((v) => Math.max(0, v - 5));
+        if (event.key === "ArrowRight") setValue((v) => Math.min(100, v + 5));
+      }}
+      className={`relative aspect-[4/3] w-full cursor-ew-resize overflow-hidden select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mvcb-orange ${className}`}
     >
       <Image src={beforeSrc} alt={beforeAlt} fill className="object-cover" />
       <span className="absolute bottom-4 left-4  bg-mvcb-black/70 px-3 py-1 text-xs font-semibold tracking-wide text-white uppercase">
@@ -53,17 +76,9 @@ export default function BeforeAfterSlider({
       </div>
 
       <span id={labelId} className="sr-only">
-        Drag to compare before and after
+        Move your cursor or finger across the image to compare before and
+        after. Left and right arrow keys also work.
       </span>
-      <input
-        type="range"
-        min={0}
-        max={100}
-        value={value}
-        onChange={(event) => setValue(Number(event.target.value))}
-        aria-labelledby={labelId}
-        className="absolute inset-0 h-full w-full cursor-ew-resize opacity-0"
-      />
     </div>
   );
 }
