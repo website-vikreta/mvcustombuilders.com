@@ -102,10 +102,10 @@ export default function TestimonialsPage() {
           data-reveal
           className="mx-auto flex max-w-6xl flex-col gap-6 bg-mvcb-black px-8 py-12 sm:px-12 md:px-16 md:py-20"
         >
-          <h2 className="text-2xl font-extrabold tracking-[-0.02em] uppercase text-mvcb-black md:text-3xl">
+          <h2 className="text-2xl font-extrabold tracking-[-0.02em] uppercase text-white md:text-3xl">
             Had a Great Experience?
           </h2>
-          <p className="text-base leading-relaxed text-muted-foreground">
+          <p className="text-base leading-relaxed text-neutral-400">
             Share your feedback on Google and help other New Jersey homeowners
             find us.
           </p>
