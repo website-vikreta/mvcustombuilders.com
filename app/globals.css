@@ -171,6 +171,16 @@
   }
   html {
     @apply font-sans;
+    /* The sticky header's contact bar collapses/expands its own height on
+       scroll (site-header.tsx). Without this, the browser's scroll-anchoring
+       "helpfully" adjusts scrollY to compensate for that height change above
+       the fold, which re-crosses the collapse threshold and re-triggers it —
+       a feedback loop that reads as the header shivering. Anchoring has to be
+       disabled at the document root: setting it on the header itself only
+       excludes the header from being chosen as the anchor node, it doesn't
+       stop the browser from anchoring to something else below it and still
+       adjusting scroll for the header's height change. */
+    overflow-anchor: none;
   }
   h1,
   h2,
