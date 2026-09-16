@@ -95,6 +95,14 @@ export default function SiteHeader() {
       "(prefers-reduced-motion: reduce)",
     ).matches;
     const barHeight = bar.offsetHeight;
+    // Hysteresis: hide only once scrolled past the bar's own height, show
+    // again only once scrolled back up well below that point. A single
+    // shared threshold flips both ways off the same pixel — and the
+    // collapse animation's own height change is enough scroll-position
+    // noise (browsers compensate via scroll anchoring) to cross it straight
+    // back, which is what reads as shivering.
+    const HIDE_AT = barHeight;
+    const SHOW_AT = Math.max(0, barHeight - 40);
     let hidden = false;
     let anchor = 0;
 
@@ -111,7 +119,9 @@ export default function SiteHeader() {
         // of resetting every tick.
         if (Math.abs(delta) < 5) return;
         anchor = scroll;
-        const hide = delta > 0 && scroll > barHeight;
+        let hide = hidden;
+        if (delta > 0 && scroll > HIDE_AT) hide = true;
+        else if (delta < 0 && scroll < SHOW_AT) hide = false;
         if (hide === hidden) return;
         hidden = hide;
         gsap.to(bar, {
