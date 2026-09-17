@@ -1,8 +1,10 @@
 "use client";
 
 import { gsap } from "gsap";
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { GeoAlt, Search, X } from "react-bootstrap-icons";
+import { ArrowRight, GeoAlt, Search, X } from "react-bootstrap-icons";
 
 import Action from "@/components/ui/action";
 import { Input } from "@/components/ui/input";
@@ -14,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { SERVICES } from "@/lib/services";
 
 const CATEGORIES = ["All", "Structural", "Interior", "Exterior"] as const;
 
@@ -30,90 +33,135 @@ const SERVICES = [
     category: "Structural",
     description:
       "Full structural renovations and gut rebuilds. Planning, permitting, framing, and finish work that keeps what's worth keeping instead of tearing it all out.",
+    image: "/images/services/whole-home-renovation.webp",
+    imageAlt:
+      "Two-story house mid-renovation, framed and sheathed with windows staged for install.",
   },
   {
     title: "Kitchen Remodeling",
     category: "Interior",
     description:
       "Custom cabinetry, integrated appliances, and stone counters in layouts built for how you live, matched to the home's original character.",
+    image: "/images/services/kitchen-remodeling.webp",
+    imageAlt:
+      "Kitchen mid-remodel with cabinets wrapped in protective plastic sheeting.",
   },
   {
     title: "Bathroom Renovation",
     category: "Interior",
     description:
       "Custom tile work, glass walk-in enclosures, heated floors, and top-tier plumbing fixtures, fitted into the footprint an older home actually gives you.",
+    image: "/images/services/bathroom-renovation.webp",
+    imageAlt:
+      "Finished modern bathroom with a glass walk-in shower and double vanity.",
   },
   {
     title: "Basement Finishing",
     category: "Interior",
     description:
       "Media rooms, home gyms, and added suites finished with proper egress and moisture barriers, built to code from the ground up.",
+    image: "/images/services/basement-finishing.webp",
+    imageAlt:
+      "Bright finished basement room with wood flooring and fresh white walls.",
   },
   {
     title: "Room Additions",
     category: "Structural",
     description:
       "Second-story pop-tops, sunrooms, and wing expansions built to match your home's existing roofline and framing, not bolted on as an afterthought.",
+    image: "/images/services/room-additions.webp",
+    imageAlt:
+      "Roof trusses and rafters framed against the sky on an addition in progress.",
   },
   {
     title: "Exterior & Historic Restoration",
     category: "Exterior",
     description:
       "Masonry, siding, decking, and concrete work that respects the original materials and detailing instead of fighting the home's era.",
+    image: "/images/services/exterior-historic-restoration.webp",
+    imageAlt:
+      "Classic white colonial home exterior with black shutters and a covered porch.",
   },
   {
     title: "Framing & Structural Repair",
     category: "Structural",
     description:
       "Sistered joists, load-bearing wall corrections, and beam replacement for homes settling or showing real structural wear, not just cosmetic sag.",
+    image: "/images/services/framing-structural-repair.webp",
+    imageAlt:
+      "Close-up of wood roof framing showing rafters and structural joints.",
   },
   {
     title: "Foundation & Masonry Repair",
     category: "Structural",
     description:
       "Crack injection, underpinning, and repointing on brick and stone foundations, addressed at the source instead of patched over.",
+    image: "/images/services/foundation-masonry-repair.webp",
+    imageAlt:
+      "Weathered brick foundation wall showing the mortar joints and coursing.",
   },
   {
     title: "Electrical & Plumbing Upgrades",
     category: "Structural",
     description:
       "Panel upgrades, rewiring, and repiping brought up to current code, planned around the renovation instead of bolted on after the fact.",
+    image: "/images/services/electrical-plumbing-upgrades.webp",
+    imageAlt:
+      "Electrician in a hard hat working on an open electrical panel.",
   },
   {
     title: "Flooring Installation",
     category: "Interior",
     description:
       "Hardwood refinishing, engineered wood, and tile installed level and square, matched to a home's existing subfloor and transitions.",
+    image: "/images/services/flooring-installation.webp",
+    imageAlt:
+      "Living room with finished wide-plank wood flooring and natural light.",
   },
   {
     title: "Custom Cabinetry & Millwork",
     category: "Interior",
     description:
       "Built-in shelving, trim work, and cabinetry made to fit an older home's actual dimensions, not stock sizes forced into the space.",
+    image: "/images/services/custom-cabinetry-millwork.webp",
+    imageAlt:
+      "Custom wood kitchen cabinetry with an integrated island and paneling.",
   },
   {
     title: "Interior Painting & Drywall",
     category: "Interior",
     description:
       "Skim-coated walls, patched plaster, and finish painting that hides repairs instead of drawing attention to where old and new meet.",
+    image: "/images/services/interior-painting-drywall.webp",
+    imageAlt:
+      "Painter rolling fresh yellow paint onto an interior wall.",
   },
   {
     title: "Roof Replacement & Repair",
     category: "Exterior",
     description:
       "Full tear-offs and repairs on asphalt, slate, and flat roofing, with proper flashing and ventilation so the deck underneath lasts.",
+    image: "/images/services/roof-replacement-repair.webp",
+    imageAlt:
+      "Roofer removing old shingles from a residential roof deck.",
   },
   {
     title: "Siding & Exterior Cladding",
     category: "Exterior",
     description:
       "Vinyl, fiber cement, and wood siding installed with correct house-wrap and flashing, matched to the home's original lines.",
+    image: "/images/services/siding-exterior-cladding.webp",
+    imageAlt:
+      "Close-up of white horizontal siding cladding on a house exterior.",
   },
   {
     title: "Deck & Patio Construction",
     category: "Exterior",
     description:
       "Pressure-treated and composite decks, and paver or concrete patios, built to code with proper footings, not surface-set.",
+    image: "/images/services/deck-patio-construction.webp",
+    imageAlt:
+      "Carpenter's hands securing wood decking boards with a driver.",
   },
 ] as const;
 
@@ -174,7 +222,14 @@ export default function ServicesPage() {
       {/* HERO */}
       <section className="relative w-full overflow-hidden bg-mvcb-black">
         <div className="absolute inset-0" aria-hidden="true">
-          <div className="absolute inset-0 bg-mvcb-black/80" />
+          <Image
+            src="/images/portfolio/before-after/addition-after.webp"
+            alt=""
+            fill
+            priority
+            className="object-cover opacity-40"
+          />
+          <div className="absolute inset-0 bg-mvcb-black/70" />
         </div>
         <div className="relative mx-auto flex max-w-6xl flex-col px-8 py-20 sm:px-12 lg:px-16 md:py-28">
           <h1 className="text-4xl font-extrabold tracking-[-0.02em] uppercase text-white sm:text-5xl md:text-6xl">
@@ -188,7 +243,7 @@ export default function ServicesPage() {
       </section>
 
       {/* SERVICES GRID */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div className="mx-auto flex max-w-6xl flex-col px-6 sm:px-8">
           {/* FILTER BAR */}
           <div
@@ -262,14 +317,18 @@ export default function ServicesPage() {
               className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
             >
               {sorted.map((service) => (
-                <div
-                  key={service.title}
-                  className="flex flex-col overflow-hidden border border-mvcb-line bg-background"
+                <Link
+                  key={service.slug}
+                  href={`/services/${service.slug}`}
+                  className="group flex flex-col overflow-hidden border border-mvcb-line bg-background transition-colors hover:border-mvcb-black"
                 >
-                  <div className="flex aspect-[4/3] items-center justify-center bg-mvcb-sand">
-                    <span className="border border-mvcb-line bg-background px-3 py-1 text-xs font-bold tracking-[0.1em] text-muted-foreground uppercase">
-                      Project Photos Coming Soon
-                    </span>
+                  <div className="relative aspect-[4/3] w-full overflow-hidden">
+                    <Image
+                      src={service.image}
+                      alt={service.imageAlt}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
                   </div>
                   <div className="flex flex-1 flex-col gap-3 p-6">
                     <span className="text-xs font-bold tracking-[0.1em] text-mvcb-orange uppercase">
@@ -281,16 +340,15 @@ export default function ServicesPage() {
                     <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
                       {service.description}
                     </p>
-                    <Action
-                      href="/contact"
-                      variant="secondary"
-                      size="sm"
-                      className="mt-2 w-fit"
-                    >
-                      Ask about this service
-                    </Action>
+                    <span className="mt-2 inline-flex items-center gap-2 text-xs font-bold tracking-[0.1em] text-mvcb-black uppercase">
+                      View service details
+                      <ArrowRight
+                        className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
+                        aria-hidden="true"
+                      />
+                    </span>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           ) : (
@@ -321,7 +379,7 @@ export default function ServicesPage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div
           data-reveal
           className="mx-auto flex max-w-6xl flex-col bg-mvcb-black px-8 py-12 sm:px-12 md:px-16 md:py-20"

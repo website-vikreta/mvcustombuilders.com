@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import HomePage from "@/components/ui/home-page";
+import HomePage, { FAQ_ITEMS } from "@/components/ui/home-page";
 import SiteFooter from "@/components/ui/site-footer";
 import SiteHeader from "@/components/ui/site-header";
 
@@ -32,6 +32,19 @@ const LOCAL_BUSINESS_SCHEMA = {
   foundingDate: "2022",
 };
 
+const FAQ_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_ITEMS.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+
 export default function Home() {
   return (
     <>
@@ -39,6 +52,12 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(LOCAL_BUSINESS_SCHEMA),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(FAQ_SCHEMA),
         }}
       />
       <SiteHeader />

@@ -3,6 +3,7 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   ArrowRight,
   ChevronDown,
@@ -17,6 +18,7 @@ import { useEffect, useRef, useState } from "react";
 
 import Action from "@/components/ui/action";
 import { CONTAINER } from "@/components/ui/section";
+import { getService } from "@/lib/services";
 import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -27,18 +29,33 @@ const NAV_LINKS = [
   { label: "Services", href: "/services" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Testimonials", href: "/testimonials" },
-  { label: "Contact", href: "/contact" },
 ];
 
-/** All six point at /services — per-service routes don't exist yet. */
-const SERVICES = [
-  "Whole-Home Renovation",
-  "Kitchen Remodeling",
-  "Bathroom Renovation",
-  "Basement Finishing",
-  "Room Additions",
-  "Exterior & Historic Restoration",
-].map((label) => ({ label, href: "/services" }));
+/** The six most-searched services, linked to their real subpages. */
+const DROPDOWN_SLUGS = [
+  "whole-home-renovation",
+  "kitchen-remodeling",
+  "bathroom-renovation",
+  "basement-finishing",
+  "room-additions",
+  "exterior-historic-restoration",
+];
+const SERVICES = DROPDOWN_SLUGS.map((slug) => {
+  const service = getService(slug);
+  return { label: service!.title, href: `/services/${slug}` };
+});
+
+/** Exact match for top-level links; a route and everything under it for
+ * parents like Services, so a service subpage still bolds "Services". */
+function isNavActive(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+const NAV_LINK_CLASS =
+  "px-4 py-2 text-xs font-bold tracking-[0.1em] uppercase transition-colors hover:text-mvcb-black";
+const MOBILE_NAV_LINK_CLASS =
+  "flex min-h-11 items-center py-3 text-sm font-bold tracking-[0.1em] uppercase";
 
 const PHONE_DISPLAY = "(973) 555-0147";
 const PHONE_HREF = "tel:+19735550147";
@@ -51,6 +68,7 @@ const BAR_LINK =
   "flex h-11 items-center gap-2 text-white/70 transition-colors hover:text-white";
 
 export default function SiteHeader() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [services, setServices] = useState(false);
   const [mobileServices, setMobileServices] = useState(false);
@@ -226,7 +244,16 @@ export default function SiteHeader() {
                   ref={trigger}
                   href={link.href}
                   aria-expanded={services}
-                  className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold tracking-[0.1em] text-muted-foreground uppercase transition-colors hover:text-mvcb-black"
+                  aria-current={
+                    isNavActive(pathname, link.href) ? "page" : undefined
+                  }
+                  className={cn(
+                    "flex items-center gap-1.5",
+                    NAV_LINK_CLASS,
+                    isNavActive(pathname, link.href)
+                      ? "font-extrabold text-mvcb-black"
+                      : "text-muted-foreground",
+                  )}
                 >
                   {link.label}
                   <ChevronDown className="h-3 w-3" aria-hidden="true" />
@@ -251,9 +278,19 @@ export default function SiteHeader() {
                         href={service.href}
                         tabIndex={services ? 0 : -1}
                         onClick={() => setServices(false)}
+                        aria-current={
+                          pathname === service.href ? "page" : undefined
+                        }
                         className="group/item flex min-h-24 items-center gap-4 px-5 py-4 transition-colors hover:bg-mvcb-black focus-visible:bg-mvcb-black"
                       >
-                        <span className="flex-1 text-sm font-bold tracking-[0.06em] text-mvcb-black uppercase transition-colors group-hover/item:text-white group-focus-visible/item:text-white">
+                        <span
+                          className={cn(
+                            "flex-1 text-sm tracking-[0.06em] uppercase transition-colors group-hover/item:text-white group-focus-visible/item:text-white",
+                            pathname === service.href
+                              ? "font-extrabold text-mvcb-orange"
+                              : "font-bold text-mvcb-black",
+                          )}
+                        >
                           {service.label}
                         </span>
                         <ArrowRight
@@ -280,7 +317,15 @@ export default function SiteHeader() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-4 py-2 text-xs font-bold tracking-[0.1em] text-muted-foreground uppercase transition-colors hover:text-mvcb-black"
+                aria-current={
+                  isNavActive(pathname, link.href) ? "page" : undefined
+                }
+                className={cn(
+                  NAV_LINK_CLASS,
+                  isNavActive(pathname, link.href)
+                    ? "font-extrabold text-mvcb-black"
+                    : "text-muted-foreground",
+                )}
               >
                 {link.label}
               </Link>
@@ -319,7 +364,16 @@ export default function SiteHeader() {
                     <Link
                       href={link.href}
                       onClick={() => setOpen(false)}
-                      className="flex min-h-11 flex-1 items-center py-3 text-sm font-bold tracking-[0.1em] text-mvcb-black uppercase"
+                      aria-current={
+                        isNavActive(pathname, link.href) ? "page" : undefined
+                      }
+                      className={cn(
+                        "flex-1",
+                        MOBILE_NAV_LINK_CLASS,
+                        isNavActive(pathname, link.href)
+                          ? "font-extrabold text-mvcb-black"
+                          : "text-mvcb-black",
+                      )}
                     >
                       {link.label}
                     </Link>
@@ -346,7 +400,15 @@ export default function SiteHeader() {
                           <Link
                             href={service.href}
                             onClick={() => setOpen(false)}
-                            className="flex min-h-11 items-center py-3 text-sm font-bold tracking-[0.1em] text-muted-foreground uppercase"
+                            aria-current={
+                              pathname === service.href ? "page" : undefined
+                            }
+                            className={cn(
+                              MOBILE_NAV_LINK_CLASS,
+                              pathname === service.href
+                                ? "font-extrabold text-mvcb-orange"
+                                : "text-muted-foreground",
+                            )}
                           >
                             {service.label}
                           </Link>
@@ -360,7 +422,15 @@ export default function SiteHeader() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="flex min-h-11 items-center py-3 text-sm font-bold tracking-[0.1em] text-mvcb-black uppercase"
+                  aria-current={
+                    isNavActive(pathname, link.href) ? "page" : undefined
+                  }
+                  className={cn(
+                    MOBILE_NAV_LINK_CLASS,
+                    isNavActive(pathname, link.href)
+                      ? "font-extrabold text-mvcb-black"
+                      : "text-mvcb-black",
+                  )}
                 >
                   {link.label}
                 </Link>

@@ -11,7 +11,7 @@ export default function LegalPage() {
   return (
     <>
       {/* HERO */}
-      <section className="border-b border-mvcb-line py-16 md:py-24">
+      <section className="border-b border-mvcb-line py-10 md:py-16">
         <div className="mx-auto max-w-6xl px-8 sm:px-12 lg:px-16">
           <h1 className="text-3xl font-extrabold tracking-[-0.02em] uppercase text-mvcb-black md:text-4xl">
             Privacy Policy
@@ -23,7 +23,7 @@ export default function LegalPage() {
       </section>
 
       {/* BODY */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div className="mx-auto flex max-w-6xl flex-col gap-12 px-6 sm:px-8 lg:flex-row">
           <nav aria-label="Policy sections" className="shrink-0 lg:w-56">
             <span className="text-xs font-semibold tracking-wide text-mvcb-black uppercase">

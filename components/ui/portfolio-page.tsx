@@ -35,136 +35,95 @@ const SORTS = {
 
 const PROJECTS = [
   {
-    title: "Commercial Interior Build-Out",
+    title: "Full-Service Salon Build-Out",
     category: "Interior",
-    tag: "Commercial Renovation",
+    tag: "Commercial Interior Build-Out",
     description:
-      "A gutted commercial space taken down to the studs and rebuilt into a finished salon: framing, electrical, lighting, and flooring in one pass.",
-    beforeSrc: "/images/portfolio/IMG_5677.PNG",
-    afterSrc: "/images/portfolio/IMG_5682.PNG",
-    beforeAlt: "Gutted commercial interior before renovation.",
-    afterAlt: "Finished salon interior after renovation.",
+      "A raw white-box suite with an open ceiling, taped drywall, and no power at the stations, built out into a working salon: finished ceiling with a curved soffit, backlit arched mirrors, wired and plumbed styling stations, and plank flooring wall to wall.",
+    beforeSrc: "/images/portfolio/before-after/salon-before.webp",
+    afterSrc: "/images/portfolio/before-after/salon-after.webp",
+    beforeAlt:
+      "Empty commercial suite with exposed ceiling, bare drywall, and a concrete slab before build-out.",
+    afterAlt:
+      "Finished salon with backlit arched mirrors, styling stations, and plank flooring.",
   },
   {
-    title: "Exterior Renovation & Roof Replacement",
-    category: "Exterior",
-    tag: "Exterior & Roofing",
+    title: "Café Dining Room Build-Out",
+    category: "Interior",
+    tag: "Restaurant & Café Build-Out",
     description:
-      "Roof deck replacement and full re-siding on a two-story home, structural work first, finish work last.",
-    beforeSrc: "/images/portfolio/IMG_5668.PNG",
-    afterSrc: "/images/portfolio/IMG_5669.PNG",
-    beforeAlt: "Two-story house exterior before roof and siding work.",
-    afterAlt: "Two-story house exterior with new roof and siding.",
+      "Exposed spiral duct, patched block walls, and a dusty slab turned into a finished dining room: a service window into the kitchen, patterned cement tile, textured dark walls, and a lit sign above the seating.",
+    beforeSrc: "/images/portfolio/before-after/cafe-before.webp",
+    afterSrc: "/images/portfolio/before-after/cafe-after.webp",
+    beforeAlt:
+      "Gutted commercial space with exposed ductwork and unfinished walls before the café build-out.",
+    afterAlt:
+      "Finished café dining room with patterned tile floor, wood tables, and a lit sign on the wall.",
   },
   {
-    title: "Patio & Pool Surround Renovation",
+    title: "Pool Deck & Rear Patio",
     category: "Exterior",
     tag: "Outdoor Living",
     description:
-      "Rebuilt outdoor living space with a new patio and pool surround, tied into the home's existing footprint.",
-    beforeSrc: "/images/portfolio/IMG_5666.PNG",
-    afterSrc: "/images/portfolio/IMG_5665.PNG",
-    beforeAlt: "Home exterior before patio and pool surround renovation.",
-    afterAlt: "Home exterior with a renovated patio and in-ground pool.",
+      "A poured pool shell sitting in graded dirt, finished into a full rear yard: stone decking around the pool and spa, a covered loggia off the house, planting beds, and low-voltage lighting.",
+    beforeSrc: "/images/portfolio/before-after/pool-patio-before.webp",
+    afterSrc: "/images/portfolio/before-after/pool-patio-after.webp",
+    beforeAlt:
+      "Backyard with an unfinished concrete pool shell and bare graded soil behind a white house.",
+    afterAlt:
+      "Finished pool, stone patio, and covered loggia lit at dusk behind the same house.",
   },
   {
-    title: "Kitchen Remodel & Cabinetry",
-    category: "Interior",
-    tag: "Kitchen Remodeling",
-    description:
-      "Full kitchen gut and rebuild with custom cabinetry, stone counters, and integrated appliances.",
-    beforeSrc: "/images/portfolio/IMG_5670.PNG",
-    afterSrc: "/images/portfolio/IMG_5671.PNG",
-    beforeAlt: "Kitchen before remodel, mid-demolition.",
-    afterAlt: "Finished kitchen with new cabinetry and counters.",
-  },
-  {
-    title: "Spa-Style Bathroom Renovation",
-    category: "Interior",
-    tag: "Bathroom Renovation",
-    description:
-      "Custom tile work, a glass walk-in enclosure, and heated floors fitted into an older home's existing footprint.",
-    beforeSrc: "/images/portfolio/IMG_5672.PNG",
-    afterSrc: "/images/portfolio/IMG_5673.PNG",
-    beforeAlt: "Bathroom before renovation.",
-    afterAlt: "Finished spa-style bathroom after renovation.",
-  },
-  {
-    title: "Whole-Home Structural Rebuild",
+    title: "Two-Story Home, Framing To Finish",
     category: "Structural",
-    tag: "Whole-Home Renovation",
+    tag: "Framing & Exterior",
     description:
-      "Full structural renovation: framing, permitting, and finish work planned around what the home's original structure could keep.",
-    beforeSrc: "/images/portfolio/IMG_5674.PNG",
-    afterSrc: "/images/portfolio/IMG_5675.PNG",
-    beforeAlt: "Home interior before structural rebuild.",
-    afterAlt: "Home interior after structural rebuild.",
+      "Caught at the halfway mark with the frame sheathed and scaffold still up, then closed in: insulated siding, black-trimmed windows, a standing-seam porch roof on timber posts, and final grading and lawn.",
+    beforeSrc: "/images/portfolio/before-after/new-build-before.webp",
+    afterSrc: "/images/portfolio/before-after/new-build-after.webp",
+    beforeAlt:
+      "Two-story house sheathed in OSB with scaffolding and lumber stacked in the yard.",
+    afterAlt:
+      "The same house finished in gray siding with a timber-post porch and a new lawn.",
   },
   {
-    title: "Basement Finishing & Media Room",
-    category: "Interior",
-    tag: "Basement Finishing",
-    description:
-      "Unfinished basement turned into a media room and home gym, with proper egress and moisture barriers built to code.",
-    beforeSrc: "/images/portfolio/IMG_5676.PNG",
-    afterSrc: "/images/portfolio/IMG_5678.PNG",
-    beforeAlt: "Unfinished basement before build-out.",
-    afterAlt: "Finished basement media room after build-out.",
-  },
-  {
-    title: "Second-Story Room Addition",
-    category: "Structural",
-    tag: "Room Additions",
-    description:
-      "Second-story pop-top addition framed to match the home's existing roofline instead of bolted on as an afterthought.",
-    beforeSrc: "/images/portfolio/IMG_5679.PNG",
-    afterSrc: "/images/portfolio/IMG_5680.PNG",
-    beforeAlt: "Home exterior before second-story addition.",
-    afterAlt: "Home exterior after second-story addition.",
-  },
-  {
-    title: "Historic Facade Restoration",
+    title: "Side Entry Stair Rebuild",
     category: "Exterior",
-    tag: "Historic Restoration",
+    tag: "Entry Stairs & Siding",
     description:
-      "Masonry and siding work that respects the home's original detailing instead of fighting its era.",
-    beforeSrc: "/images/portfolio/IMG_5681.PNG",
-    afterSrc: "/images/portfolio/IMG_5318.PNG",
-    beforeAlt: "Historic home facade before restoration.",
-    afterAlt: "Historic home facade after restoration.",
+      "Siding opened back to the house wrap and a worn concrete stoop at the side door, rebuilt as a pressure-treated stair and landing with a vinyl rail, a new door, and siding closed back over the original stone foundation.",
+    beforeSrc: "/images/portfolio/before-after/side-entry-before.webp",
+    afterSrc: "/images/portfolio/before-after/side-entry-after.webp",
+    beforeAlt:
+      "Side entry with siding stripped to the house wrap and a cracked concrete stoop.",
+    afterAlt:
+      "The same side entry with a new wood stair, white vinyl railing, and siding restored.",
   },
   {
-    title: "Custom Built-In Cabinetry",
-    category: "Interior",
-    tag: "Custom Millwork",
-    description:
-      "Built-in shelving and cabinetry made to fit an older home's actual dimensions, not stock sizes forced into the space.",
-    beforeSrc: "/images/portfolio/IMG_5658.PNG",
-    afterSrc: "/images/portfolio/IMG_5659.PNG",
-    beforeAlt: "Living room before custom built-in cabinetry.",
-    afterAlt: "Living room after custom built-in cabinetry.",
-  },
-  {
-    title: "Siding & Exterior Cladding",
+    title: "Front Porch & Paver Walkway",
     category: "Exterior",
-    tag: "Exterior Cladding",
+    tag: "Porch & Hardscape",
     description:
-      "Fiber cement siding installed with correct house-wrap and flashing, matched to the home's original lines.",
-    beforeSrc: "/images/portfolio/IMG_5660.PNG",
-    afterSrc: "/images/portfolio/IMG_5661.PNG",
-    beforeAlt: "Home exterior before new siding.",
-    afterAlt: "Home exterior after new siding.",
+      "Temporary posts, a bare foundation wall, and dirt where the yard should be, finished into a railed porch with columns and a lattice skirt, a wood stair, and a paver walk run out to the drive.",
+    beforeSrc: "/images/portfolio/before-after/front-porch-before.webp",
+    afterSrc: "/images/portfolio/before-after/front-porch-after.webp",
+    beforeAlt:
+      "Front porch under construction with temporary posts, exposed foundation, and bare soil.",
+    afterAlt:
+      "Finished front porch with white columns, railing, lattice skirt, and a paver walkway.",
   },
   {
-    title: "Foundation & Masonry Repair",
+    title: "Second-Story Addition & Re-Side",
     category: "Structural",
-    tag: "Foundation Repair",
+    tag: "Additions",
     description:
-      "Crack injection and repointing on a brick foundation, addressed at the source instead of patched over.",
-    beforeSrc: "/images/portfolio/IMG_5662.PNG",
-    afterSrc: "/images/portfolio/IMG_5663.PNG",
-    beforeAlt: "Foundation before masonry repair.",
-    afterAlt: "Foundation after masonry repair.",
+      "A cape framed out for a full second story on one wing, then wrapped and sided in deep navy with white trim, with the new roofline carried across the original so the addition reads as part of the house.",
+    beforeSrc: "/images/portfolio/before-after/addition-before.webp",
+    afterSrc: "/images/portfolio/before-after/addition-after.webp",
+    beforeAlt:
+      "House wrapped in building paper mid-addition, with scaffolding and lumber on site.",
+    afterAlt:
+      "The same house finished in navy siding with white trim and the addition blended into the roofline.",
   },
 ] as const;
 
@@ -227,21 +186,29 @@ export default function PortfolioPage() {
       {/* HERO */}
       <section className="relative w-full overflow-hidden bg-mvcb-black">
         <div className="absolute inset-0" aria-hidden="true">
-          <div className="absolute inset-0 bg-mvcb-black/80" />
+          <Image
+            src="/images/portfolio/before-after/pool-patio-after.webp"
+            alt=""
+            fill
+            priority
+            className="object-cover opacity-40"
+          />
+          <div className="absolute inset-0 bg-mvcb-black/70" />
         </div>
         <div className="relative mx-auto flex max-w-6xl flex-col px-8 py-20 sm:px-12 lg:px-16 md:py-28">
           <h1 className="text-4xl font-extrabold tracking-[-0.02em] uppercase text-white sm:text-5xl md:text-6xl">
             See The Transformation
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-neutral-300">
-            Real renovation and restoration work across North &amp; Central
-            Jersey. Click any project below and hover the photo to compare.
+            Seven of our own jobs across North &amp; Central Jersey, from
+            commercial build-outs to additions, porches, and pool decks. Open
+            any project and drag across the photo to compare.
           </p>
         </div>
       </section>
 
       {/* PROJECT GRID */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div className="mx-auto flex max-w-6xl flex-col px-6 sm:px-8">
           {/* FILTER BAR */}
           <div
@@ -383,7 +350,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div
           data-reveal
           className="mx-auto flex max-w-6xl flex-col bg-mvcb-black px-8 py-12 sm:px-12 md:px-16 md:py-20"
