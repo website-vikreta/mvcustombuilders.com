@@ -96,7 +96,7 @@ export default function AboutPage() {
       </section>
 
       {/* COMPANY STORY */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div className="mx-auto flex max-w-6xl flex-col gap-10 px-6 sm:px-8 lg:flex-row lg:items-center lg:gap-16">
           <div
             data-reveal
@@ -131,7 +131,7 @@ export default function AboutPage() {
       </section>
 
       {/* CREDENTIALS */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div className="mx-auto max-w-6xl px-8 sm:px-12 lg:px-16">
           <div data-reveal className="max-w-2xl">
             <h2 className="text-3xl font-extrabold tracking-[-0.02em] uppercase text-mvcb-black md:text-5xl">
@@ -164,7 +164,7 @@ export default function AboutPage() {
       </section>
 
       {/* WHY CHOOSE US */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div className="mx-auto max-w-6xl px-8 sm:px-12 lg:px-16">
           <div data-reveal className="max-w-2xl">
             <h2 className="text-3xl font-extrabold tracking-[-0.02em] uppercase text-mvcb-black md:text-5xl">
@@ -198,7 +198,7 @@ export default function AboutPage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div
           data-reveal
           className="mx-auto flex max-w-6xl flex-col bg-mvcb-black px-8 py-12 sm:px-12 md:px-16 md:py-20"

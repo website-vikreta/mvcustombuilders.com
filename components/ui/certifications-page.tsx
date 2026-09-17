@@ -49,7 +49,7 @@ export default function CertificationsPage() {
       <ScrollRevealInit />
 
       {/* HERO */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div className="mx-auto flex max-w-6xl flex-col bg-mvcb-black px-8 py-12 sm:px-12 md:px-16 md:py-20">
           <h1 className="text-4xl font-extrabold tracking-[-0.02em] uppercase text-white sm:text-5xl md:text-6xl">
             Certifications &amp; Licenses
@@ -63,7 +63,7 @@ export default function CertificationsPage() {
       </section>
 
       {/* CERTIFICATIONS LIST */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div className="mx-auto flex max-w-5xl flex-col gap-6 px-6 sm:px-8">
           {CERTIFICATIONS.map(
             ({ icon: Icon, title, issuingBody, idLabel, description }) => (
@@ -112,7 +112,7 @@ export default function CertificationsPage() {
       </section>
 
       {/* TRUST STATEMENT */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div
           data-reveal
           className="mx-auto flex max-w-6xl flex-col gap-6 bg-mvcb-black px-8 py-12 sm:px-12 md:px-16 md:py-20"
@@ -129,7 +129,7 @@ export default function CertificationsPage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div
           data-reveal
           className="mx-auto flex max-w-6xl flex-col bg-mvcb-black px-8 py-12 sm:px-12 md:px-16 md:py-20"

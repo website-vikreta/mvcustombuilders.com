@@ -29,7 +29,6 @@ const NAV_LINKS = [
   { label: "Services", href: "/services" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Testimonials", href: "/testimonials" },
-  { label: "Contact", href: "/contact" },
 ];
 
 /** The six most-searched services, linked to their real subpages. */
