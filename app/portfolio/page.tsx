@@ -7,11 +7,11 @@ import SiteHeader from "@/components/ui/site-header";
 export const metadata: Metadata = {
   title: "Portfolio | MV Custom Builders, Belleville NJ",
   description:
-    "Real renovation and restoration work across North & Central Jersey, with a before/after look at a full commercial interior build-out.",
+    "Before-and-after photos of our own work across North & Central Jersey: commercial build-outs, second-story additions, porches, siding, and pool decks.",
   openGraph: {
     title: "Portfolio | MV Custom Builders, Belleville NJ",
     description:
-      "Real renovation and restoration work across North & Central Jersey.",
+      "Before-and-after photos of real renovation work across North & Central Jersey.",
   },
 };
 

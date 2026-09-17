@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
  */
 
 /** Vertical padding for every full-width section. No exceptions. */
-export const SECTION_Y = "py-16 md:py-24";
+export const SECTION_Y = "py-10 md:py-16";
 
 /** The content container. */
 export const CONTAINER = "mx-auto max-w-6xl px-8 sm:px-12 lg:px-16";
