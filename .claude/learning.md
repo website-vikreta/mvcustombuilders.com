@@ -491,6 +491,22 @@ here so the site stays uniform across pages and sessions.
 - Where: `components/ui/scroll-reveal-init.tsx`.
 - Date: 2026-08-17
 
+### [Component] — FaqAccordion, one-open-at-a-time, no JS height measuring
+- Rule: `components/ui/faq-accordion.tsx` takes `{question, answer}[]` and renders a
+  hairline-bordered accordion (`border-t` on the list, `border-b` per row, no box shadow).
+  Height animates via the CSS grid-rows trick (`grid-template-rows: 0fr` → `1fr` on a wrapper,
+  `overflow-hidden` on its child) instead of measuring `scrollHeight` in JS — works for any
+  answer length, no `ResizeObserver`, respects `motion-reduce:transition-none`. The
+  expand/collapse chevron reuses the exact rotate-on-open pattern already used for the
+  header's mobile Services toggle (`ChevronDown` + `rotate-180`) rather than inventing a new
+  icon language for the same interaction.
+- Content source: `FAQ_ITEMS` in `home-page.tsx` (exported, not just local) so
+  `app/page.tsx` can reuse the same array to emit an `FAQPage` JSON-LD block. Answers are
+  grounded only in facts already published elsewhere on the site (license/cert numbers,
+  service area, founding year, hours) — never invent a new claim (financing terms, warranty
+  length, average project duration) just to fill out an answer.
+- Placement: homepage, between "Where we work" and the final CTA — answer objections right
+  before asking for the sale.
 ### [Routing] — per-service subpages at /services/[slug], one shared data source
 - Rule: every service now has its own route (`app/services/[slug]/page.tsx`, statically
   generated via `generateStaticParams`), instead of all 15 grid cards and all 6 header
