@@ -491,6 +491,36 @@ here so the site stays uniform across pages and sessions.
 - Where: `components/ui/scroll-reveal-init.tsx`.
 - Date: 2026-08-17
 
+### [Routing] — per-service subpages at /services/[slug], one shared data source
+- Rule: every service now has its own route (`app/services/[slug]/page.tsx`, statically
+  generated via `generateStaticParams`), instead of all 15 grid cards and all 6 header
+  dropdown items pointing at the flat `/services` listing. `lib/services.ts` is the single
+  source of truth: `slug`, `title`, `category`, `description` (grid teaser), `eyebrow`
+  (lowercase, subpage hero), `intro` (subpage opening paragraph), `included` (checklist), and
+  `image`/`imageAlt`. `services-page.tsx`, `service-detail-page.tsx` (the subpage template),
+  and `site-header.tsx`'s dropdown all import from here instead of keeping their own copies —
+  don't reintroduce a duplicate inline `SERVICES` array in any of them.
+- The subpage template lives at `components/ui/service-detail-page.tsx` (one component, not
+  15 files), rendered by the dynamic route with the matched `Service` record. `getService(slug)`
+  returns `undefined` for a bad slug, which the route turns into `notFound()`.
+- Next 16's dynamic segments are async: `params: Promise<{ slug: string }>`, always `await`ed
+  before use, in both `generateMetadata` and the page component.
+- Every grid card in `services-page.tsx` is itself the `<Link>` (mirrors the portfolio grid's
+  `DialogTrigger`-wraps-the-whole-card pattern) — no nested `<a>`/`Action` inside it.
+- Date: 2026-09-17
+
+### [Nav] — active link state
+- Rule: the header now bolds whichever nav link matches the current route.
+  `isNavActive(pathname, href)` in `site-header.tsx` does exact match for `/`, and `pathname
+  === href || pathname.startsWith(href + "/")` for everything else, so a service subpage
+  still bolds the parent "Services" trigger. Active styling is `font-extrabold text-mvcb-black`
+  against the inactive `font-bold text-muted-foreground` (desktop) — a step up in weight, not
+  a new color system, since nav links are already bold by house style. Services-dropdown items
+  use `text-mvcb-orange` instead of black when active (exact match only, no parent bolding —
+  each item is a leaf route), since they sit on a white dropdown panel where an orange accent
+  reads better than another black-on-black step. Also sets `aria-current="page"` alongside the
+  visual change. Reuse `isNavActive` for any future "you are here" nav state instead of
+  re-deriving pathname comparisons inline.
 ### [Imagery] — services grid uses licensed Unsplash stock, same 1200×900 pipeline
 - Rule: `/services`'s 15-card grid had a "Project Photos Coming Soon" placeholder box on
   every card (no real project photos exist per-service yet). Filled it with one Unsplash photo
