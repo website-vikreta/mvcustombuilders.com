@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import {
   ConeStriped,
   FileEarmarkCheck,
@@ -36,36 +37,42 @@ const HERO_HIGHLIGHTS = [
 const SERVICES = [
   {
     step: "01",
+    slug: "whole-home-renovation",
     title: "Whole-Home Renovation",
     description:
       "Full structural renovations and gut rebuilds. Planning, permitting, framing, and finish work, keeping what's worth keeping.",
   },
   {
     step: "02",
+    slug: "kitchen-remodeling",
     title: "Kitchen Remodeling",
     description:
       "Custom cabinetry, integrated appliances, and stone counters, laid out for how you actually cook.",
   },
   {
     step: "03",
+    slug: "bathroom-renovation",
     title: "Bathroom Renovation",
     description:
       "Custom tile work, glass walk-in enclosures, heated floors, and fixtures that hold up after the first winter.",
   },
   {
     step: "04",
+    slug: "basement-finishing",
     title: "Basement Finishing",
     description:
       "Media rooms, home gyms, and in-law suites. Proper egress and moisture barriers go in before anything pretty does.",
   },
   {
     step: "05",
+    slug: "room-additions",
     title: "Room Additions",
     description:
       "Second-story pop-tops, sunrooms, and wing expansions framed to meet your existing roofline instead of fighting it.",
   },
   {
     step: "06",
+    slug: "exterior-historic-restoration",
     title: "Exterior & Historic Restoration",
     description:
       "Masonry, siding, decking, and concrete. We work with the original materials rather than covering them up.",
@@ -360,8 +367,8 @@ export default function HomePage() {
         <ul data-reveal="children" className={CONTENT_GAP}>
           {SERVICES.map((service) => (
             <li key={service.step}>
-              <a
-                href="/services"
+              <Link
+                href={`/services/${service.slug}`}
                 className="group flex flex-col gap-4 bg-mvcb-cream p-6 transition-colors hover:bg-mvcb-black md:flex-row md:items-center md:gap-10 md:p-8"
               >
                 <span className="text-sm font-bold tabular-nums text-mvcb-orange md:w-12">
@@ -379,7 +386,7 @@ export default function HomePage() {
                 >
                   &rarr;
                 </span>
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
