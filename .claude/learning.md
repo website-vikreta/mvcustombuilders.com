@@ -490,3 +490,29 @@ here so the site stays uniform across pages and sessions.
   unchanged. No new attribute needed — the check is automatic per-element.
 - Where: `components/ui/scroll-reveal-init.tsx`.
 - Date: 2026-08-17
+
+### [Trust badges] — no third-party certification logos, ever
+- Rule: checked whether official public-use badges exist for the site's 4 credentials before
+  building anything. Findings: NJ's SBE certification program and the NJ DCA registration
+  don't provide a downloadable logo/seal for certified businesses to display (checked
+  business.nj.gov/pages/sbe and the Division of Revenue's business-cert-program page
+  directly — no badge program mentioned on either). OSHA doesn't certify businesses at all —
+  it only certifies individual workers via OSHA-10/30 cards — so an "OSHA Certified" badge
+  using OSHA's actual seal would misrepresent the relationship regardless. There's no
+  "Licensed & Insured" issuing body either; that's generic coverage, not a certification with
+  a mark. Conclusion: every credential badge on this site is our own design
+  (`components/ui/cert-badge.tsx`), never a reproduced government/agency logo. If a future
+  task asks for "the certificate logo," check for a real public-use badge program first
+  (most US state licensing/registration boards don't have one — the norm is a text license
+  number, not a seal) before sourcing or downloading anything.
+- `lib/certifications.ts` is the single data source for all 4 credentials (icon, full
+  `title`, compact `shortLabel`, `issuingBody`, `idLabel`, `description`) — replaces three
+  separate, drifting copies that used to live in `about-page.tsx`, `home-page.tsx`, and
+  `certifications-page.tsx`.
+- `CertBadge` renders just the icon tile (not the surrounding text), so each page keeps its
+  own existing layout around it. `size`: `sm` (footer, h-10) / `md` (about + home page grids,
+  h-14, matches home page's pre-existing solid-orange tile, which was already the best
+  version of this pattern on the site) / `lg` (certifications page, h-16). `tone="orange"`
+  (solid fill) for light backgrounds; `tone="outline"` (translucent white/10 + border) for the
+  footer's `bg-mvcb-orange` panel, where a solid orange tile would disappear into the panel.
+- Date: 2026-09-17

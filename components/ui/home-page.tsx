@@ -1,13 +1,8 @@
 import Image from "next/image";
-import {
-  ConeStriped,
-  FileEarmarkCheck,
-  GeoAlt,
-  PatchCheckFill,
-  ShieldCheck,
-} from "react-bootstrap-icons";
+import { GeoAlt } from "react-bootstrap-icons";
 
 import Action from "@/components/ui/action";
+import CertBadge from "@/components/ui/cert-badge";
 import ProjectCarousel from "@/components/ui/project-carousel";
 import ScrollRevealInit from "@/components/ui/scroll-reveal-init";
 import {
@@ -19,6 +14,7 @@ import {
 } from "@/components/ui/section";
 import StatCounters from "@/components/ui/stat-counters";
 import TestimonialCarousel from "@/components/ui/testimonial-carousel";
+import { CERTIFICATIONS } from "@/lib/certifications";
 
 const TRUST_BADGES = [
   "DCA Licensed",
@@ -144,33 +140,6 @@ const TESTIMONIALS = [
       "Very professional crew. They handled framing and insulation to a genuinely high standard. True craftsmen who take pride in the work.",
     name: "Daniel L.",
     location: "Clifton, NJ",
-  },
-];
-
-const CREDENTIALS = [
-  {
-    icon: PatchCheckFill,
-    title: "DCA Licensed",
-    description:
-      "Registered with the NJ Division of Consumer Affairs for residential building work.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "SBE Approved",
-    description:
-      "Certified Small Business Enterprise under New Jersey's state program.",
-  },
-  {
-    icon: ConeStriped,
-    title: "OSHA Certified",
-    description:
-      "Site safety protocols followed on every job, on the small ones too.",
-  },
-  {
-    icon: FileEarmarkCheck,
-    title: "Insured & Bonded",
-    description:
-      "Full structural liability coverage, so a problem on site stays our problem.",
   },
 ];
 
@@ -326,21 +295,19 @@ export default function HomePage() {
           />
 
           <div className="flex flex-col">
-            {CREDENTIALS.map(({ icon: Icon, title, description }) => (
+            {CERTIFICATIONS.map((cert) => (
               <div
-                key={title}
+                key={cert.id}
                 data-reveal="mask"
                 className="flex h-full gap-6 border border-mvcb-line border-b-0 p-6 last:border-b md:p-8"
               >
-                <span className="flex h-14 w-14 shrink-0 items-center justify-center bg-mvcb-orange">
-                  <Icon className="h-6 w-6 text-white" aria-hidden="true" />
-                </span>
+                <CertBadge cert={cert} size="md" />
                 <div>
                   <h3 className="text-base font-extrabold tracking-[-0.01em] text-mvcb-black uppercase">
-                    {title}
+                    {cert.shortLabel}
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                    {description}
+                    {cert.description}
                   </p>
                 </div>
               </div>

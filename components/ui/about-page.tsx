@@ -1,44 +1,16 @@
 import {
-  PatchCheckFill,
   Calendar,
-  FileEarmarkCheck,
   Hammer,
-  ConeStriped,
   ChatSquareText,
   ShieldCheck,
 } from "react-bootstrap-icons";
 import Image from "next/image";
 
 import Action from "@/components/ui/action";
+import CertBadge from "@/components/ui/cert-badge";
 import ScrollRevealInit from "@/components/ui/scroll-reveal-init";
 import StatCounters from "@/components/ui/stat-counters";
-
-const CREDENTIALS = [
-  {
-    icon: PatchCheckFill,
-    title: "DCA Licensed Renovation Contractor",
-    description:
-      "Regulated by the NJ Division of Consumer Affairs for safe residential builds.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "SBE Approved Contractor",
-    description:
-      "Official Small Business Enterprise status matching top NJ standards.",
-  },
-  {
-    icon: ConeStriped,
-    title: "OSHA Certified Operations",
-    description:
-      "Site compliance held to maximum safety protocols on every job.",
-  },
-  {
-    icon: FileEarmarkCheck,
-    title: "Licensed & Insured Coverage",
-    description:
-      "Comprehensive structural liability coverage protecting our clients.",
-  },
-];
+import { CERTIFICATIONS } from "@/lib/certifications";
 
 const WHY_US = [
   {
@@ -144,18 +116,18 @@ export default function AboutPage() {
           </div>
 
           <div className="mt-12 grid md:mt-16 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {CREDENTIALS.map(({ icon: Icon, title, description }) => (
+            {CERTIFICATIONS.map((cert) => (
               <div
-                key={title}
+                key={cert.id}
                 data-reveal
                 className="border border-mvcb-line p-6"
               >
-                <Icon className="h-6 w-6 text-mvcb-orange" aria-hidden="true" />
-                <h3 className="mt-3 text-base font-extrabold tracking-[-0.02em] text-mvcb-black uppercase">
-                  {title}
+                <CertBadge cert={cert} size="md" />
+                <h3 className="mt-4 text-base font-extrabold tracking-[-0.02em] text-mvcb-black uppercase">
+                  {cert.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {description}
+                  {cert.description}
                 </p>
               </div>
             ))}

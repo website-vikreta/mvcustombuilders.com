@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { Clock, GeoAlt, Instagram, TelephoneFill } from "react-bootstrap-icons";
 
+import CertBadge from "@/components/ui/cert-badge";
 import Marquee from "@/components/ui/marquee";
 import { CONTAINER } from "@/components/ui/section";
+import { CERTIFICATIONS } from "@/lib/certifications";
 
 const QUICK_LINKS = [
   { label: "About", href: "/about" },
@@ -71,10 +73,15 @@ export default function SiteFooter() {
             <h2 className="text-xs font-bold tracking-[0.1em] text-white/80 uppercase">
               Credentials
             </h2>
-            <ul className="mt-6 space-y-3 text-sm text-white/85">
-              <li>NJ DCA License #13VH12948300</li>
-              <li>SBE Certification #SBE202409</li>
-              <li>OSHA Certified &amp; Fully Insured</li>
+            <ul className="mt-6 grid grid-cols-2 gap-4">
+              {CERTIFICATIONS.map((cert) => (
+                <li key={cert.id} className="flex items-center gap-3">
+                  <CertBadge cert={cert} size="sm" tone="outline" />
+                  <span className="text-xs font-semibold tracking-wide text-white/85 uppercase">
+                    {cert.shortLabel}
+                  </span>
+                </li>
+              ))}
             </ul>
             <p className="mt-6 max-w-xs text-sm text-white/85">
               A licensed renovation and restoration contractor for old and
