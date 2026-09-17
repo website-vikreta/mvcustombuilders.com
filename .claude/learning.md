@@ -510,4 +510,46 @@ here so the site stays uniform across pages and sessions.
 - These are placeholders per the site's own "real photography preferred, stock as placeholder"
   rule — swap them for real jobsite photos of each service as they become available, same
   target size.
+### [Imagery] — portfolio before/after photos are normalized to 1200×900 WebP
+- Rule: every before/after pair on the portfolio page is pre-cropped to 4:3 and written to
+  `public/images/portfolio/before-after/<slug>-{before,after}.webp` at 1200×900, quality 82.
+  Both consumers render at 4:3 (`aspect-[4/3]` on the grid card and on
+  `before-after-slider.tsx`), so cropping at build time instead of leaning on `object-cover`
+  keeps the two halves of a pair framed identically — a center crop of a portrait phone photo
+  and a landscape DSLR shot otherwise line up differently under the slider handle. 1200px wide
+  is ~1.5× the largest render box (`max-w-3xl` dialog = 768px), which is enough for 2× on the
+  grid cards (≈384px).
+- Source masters stay in `public/before_after_images/` (raw client uploads, untouched);
+  `sharp` does the crop. Phone screenshots arrive letterboxed with a status bar baked in —
+  find the largest contiguous non-black row run and `extract()` it before resizing, don't
+  eyeball the offsets.
+- Date: 2026-09-17
+
+### [Section spacing] — SECTION_Y reduced again, py-16/py-24 → py-10/py-16
+- Rule: every section uses independent top+bottom padding (`SECTION_Y`), so two adjacent
+  light-tone sections stack their bottom+top padding into one visible gap — at `py-16
+  md:py-24` that was 128px on mobile / 192px on desktop between blocks, which read as too
+  much air between consecutive sections. Reduced `SECTION_Y` in `components/ui/section.tsx`
+  to `py-10 md:py-16` (80px / 128px between blocks) and did the matching site-wide
+  find/replace of the literal `py-16 md:py-24` string across every `*-page.tsx` (sections stay
+  local/hardcoded per the `[Component split]` entry — `home-page.tsx` already ran through the
+  `Section` component so it picked up the change for free). Hero sections keep their own
+  `py-20 md:py-28` — unaffected, they don't stack against a section above them. Dark/navy/
+  orange inner panel padding (`px-8 py-12 …`) also untouched — that's padding inside a single
+  block, not a boundary between two.
+- If this still reads as too tight or too loose, change `SECTION_Y` and re-run the same
+  find/replace — don't hand-tune individual pages.
+- Date: 2026-09-17
+
+### [Hero imagery] — dark hero sections use a real photo, not a flat fill
+- Rule: `/about`'s hero was the only one with an image behind the black overlay
+  (`under-construction-hero.webp` at `opacity-40` under `bg-mvcb-black/70`); `/portfolio` and
+  `/services` were still a flat `bg-mvcb-black/80` over nothing. Brought both in line with the
+  same pattern — `<Image fill priority className="object-cover opacity-40">` + a
+  `bg-mvcb-black/70` overlay div, both inside the `absolute inset-0 aria-hidden` wrapper — and
+  picked one of the site's own before/after "after" shots per page so the photo matches the
+  page's subject: `/portfolio` uses `pool-patio-after.webp`, `/services` uses
+  `addition-after.webp`. Follow this exact overlay pair (`opacity-40` image, `/70` black) for
+  any future dark hero — `/80` with no image was the inconsistent one-off, not a competing
+  pattern.
 - Date: 2026-09-17

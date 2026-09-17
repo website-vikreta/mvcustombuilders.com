@@ -220,7 +220,14 @@ export default function ServicesPage() {
       {/* HERO */}
       <section className="relative w-full overflow-hidden bg-mvcb-black">
         <div className="absolute inset-0" aria-hidden="true">
-          <div className="absolute inset-0 bg-mvcb-black/80" />
+          <Image
+            src="/images/portfolio/before-after/addition-after.webp"
+            alt=""
+            fill
+            priority
+            className="object-cover opacity-40"
+          />
+          <div className="absolute inset-0 bg-mvcb-black/70" />
         </div>
         <div className="relative mx-auto flex max-w-6xl flex-col px-8 py-20 sm:px-12 lg:px-16 md:py-28">
           <h1 className="text-4xl font-extrabold tracking-[-0.02em] uppercase text-white sm:text-5xl md:text-6xl">
@@ -234,7 +241,7 @@ export default function ServicesPage() {
       </section>
 
       {/* SERVICES GRID */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div className="mx-auto flex max-w-6xl flex-col px-6 sm:px-8">
           {/* FILTER BAR */}
           <div
@@ -370,7 +377,7 @@ export default function ServicesPage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div
           data-reveal
           className="mx-auto flex max-w-6xl flex-col bg-mvcb-black px-8 py-12 sm:px-12 md:px-16 md:py-20"
