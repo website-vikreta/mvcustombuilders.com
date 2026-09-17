@@ -54,7 +54,7 @@ export default function TestimonialsPage() {
       <ScrollRevealInit />
 
       {/* HERO */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div className="mx-auto flex max-w-6xl flex-col bg-mvcb-black px-8 py-12 sm:px-12 md:px-16 md:py-20">
           <h1 className="text-4xl font-extrabold tracking-[-0.02em] uppercase text-white sm:text-5xl md:text-6xl">
             Client Testimonials
@@ -67,7 +67,7 @@ export default function TestimonialsPage() {
       </section>
 
       {/* REVIEWS GRID */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div className="mx-auto max-w-6xl px-8 sm:px-12 lg:px-16">
           <div className="grid gap-6 md:grid-cols-2">
             {TESTIMONIALS.map((testimonial) => (
@@ -97,7 +97,7 @@ export default function TestimonialsPage() {
       </section>
 
       {/* LEAVE A REVIEW */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div
           data-reveal
           className="mx-auto flex max-w-6xl flex-col gap-6 bg-mvcb-black px-8 py-12 sm:px-12 md:px-16 md:py-20"
@@ -116,7 +116,7 @@ export default function TestimonialsPage() {
       </section>
 
       {/* INSTAGRAM */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div
           data-reveal
           className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-6 sm:px-8 md:flex-row md:items-center md:justify-between"
@@ -135,7 +135,7 @@ export default function TestimonialsPage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-16">
         <div
           data-reveal
           className="mx-auto flex max-w-6xl flex-col bg-mvcb-black px-8 py-12 sm:px-12 md:px-16 md:py-20"

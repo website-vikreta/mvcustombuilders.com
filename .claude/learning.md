@@ -507,4 +507,95 @@ here so the site stays uniform across pages and sessions.
   length, average project duration) just to fill out an answer.
 - Placement: homepage, between "Where we work" and the final CTA — answer objections right
   before asking for the sale.
+### [Routing] — per-service subpages at /services/[slug], one shared data source
+- Rule: every service now has its own route (`app/services/[slug]/page.tsx`, statically
+  generated via `generateStaticParams`), instead of all 15 grid cards and all 6 header
+  dropdown items pointing at the flat `/services` listing. `lib/services.ts` is the single
+  source of truth: `slug`, `title`, `category`, `description` (grid teaser), `eyebrow`
+  (lowercase, subpage hero), `intro` (subpage opening paragraph), `included` (checklist), and
+  `image`/`imageAlt`. `services-page.tsx`, `service-detail-page.tsx` (the subpage template),
+  and `site-header.tsx`'s dropdown all import from here instead of keeping their own copies —
+  don't reintroduce a duplicate inline `SERVICES` array in any of them.
+- The subpage template lives at `components/ui/service-detail-page.tsx` (one component, not
+  15 files), rendered by the dynamic route with the matched `Service` record. `getService(slug)`
+  returns `undefined` for a bad slug, which the route turns into `notFound()`.
+- Next 16's dynamic segments are async: `params: Promise<{ slug: string }>`, always `await`ed
+  before use, in both `generateMetadata` and the page component.
+- Every grid card in `services-page.tsx` is itself the `<Link>` (mirrors the portfolio grid's
+  `DialogTrigger`-wraps-the-whole-card pattern) — no nested `<a>`/`Action` inside it.
+- Date: 2026-09-17
+
+### [Nav] — active link state
+- Rule: the header now bolds whichever nav link matches the current route.
+  `isNavActive(pathname, href)` in `site-header.tsx` does exact match for `/`, and `pathname
+  === href || pathname.startsWith(href + "/")` for everything else, so a service subpage
+  still bolds the parent "Services" trigger. Active styling is `font-extrabold text-mvcb-black`
+  against the inactive `font-bold text-muted-foreground` (desktop) — a step up in weight, not
+  a new color system, since nav links are already bold by house style. Services-dropdown items
+  use `text-mvcb-orange` instead of black when active (exact match only, no parent bolding —
+  each item is a leaf route), since they sit on a white dropdown panel where an orange accent
+  reads better than another black-on-black step. Also sets `aria-current="page"` alongside the
+  visual change. Reuse `isNavActive` for any future "you are here" nav state instead of
+  re-deriving pathname comparisons inline.
+### [Imagery] — services grid uses licensed Unsplash stock, same 1200×900 pipeline
+- Rule: `/services`'s 15-card grid had a "Project Photos Coming Soon" placeholder box on
+  every card (no real project photos exist per-service yet). Filled it with one Unsplash photo
+  per service, picked to match that service's actual subject (kitchen remodel → a kitchen mid
+  reno, electrical upgrades → an electrician at a panel, etc.), not a generic fill. Only
+  `images.unsplash.com/photo-...` (free tier) URLs are used — never `plus.unsplash.com/
+  premium_photo-...` (Unsplash+, paid/licensed, would need a subscription this project doesn't
+  have). Downloaded full-size, then ran through the same crop pipeline as the portfolio
+  before/after photos: `sharp().resize(1200, 900, {fit:"cover"}).webp({quality:82})`, saved to
+  `public/images/services/<slug>.webp`. `SERVICES` entries in `services-page.tsx` carry
+  `image`/`imageAlt` fields; alt text describes the photo's actual content, not an unverifiable
+  claim that it's the company's own job (per the fabricated-facts rule in this log).
+- Unsplash's official search API needs an access key this project doesn't have, and the
+  unofficial `unsplash.com/napi/search/photos` endpoint is unreliable when hit directly (works
+  once, then 401s — likely bot-protected). `WebFetch` on the public `unsplash.com/s/photos/
+  <query>` search page works reliably instead and returns direct photo URLs with alt text.
+- These are placeholders per the site's own "real photography preferred, stock as placeholder"
+  rule — swap them for real jobsite photos of each service as they become available, same
+  target size.
+### [Imagery] — portfolio before/after photos are normalized to 1200×900 WebP
+- Rule: every before/after pair on the portfolio page is pre-cropped to 4:3 and written to
+  `public/images/portfolio/before-after/<slug>-{before,after}.webp` at 1200×900, quality 82.
+  Both consumers render at 4:3 (`aspect-[4/3]` on the grid card and on
+  `before-after-slider.tsx`), so cropping at build time instead of leaning on `object-cover`
+  keeps the two halves of a pair framed identically — a center crop of a portrait phone photo
+  and a landscape DSLR shot otherwise line up differently under the slider handle. 1200px wide
+  is ~1.5× the largest render box (`max-w-3xl` dialog = 768px), which is enough for 2× on the
+  grid cards (≈384px).
+- Source masters stay in `public/before_after_images/` (raw client uploads, untouched);
+  `sharp` does the crop. Phone screenshots arrive letterboxed with a status bar baked in —
+  find the largest contiguous non-black row run and `extract()` it before resizing, don't
+  eyeball the offsets.
+- Date: 2026-09-17
+
+### [Section spacing] — SECTION_Y reduced again, py-16/py-24 → py-10/py-16
+- Rule: every section uses independent top+bottom padding (`SECTION_Y`), so two adjacent
+  light-tone sections stack their bottom+top padding into one visible gap — at `py-16
+  md:py-24` that was 128px on mobile / 192px on desktop between blocks, which read as too
+  much air between consecutive sections. Reduced `SECTION_Y` in `components/ui/section.tsx`
+  to `py-10 md:py-16` (80px / 128px between blocks) and did the matching site-wide
+  find/replace of the literal `py-16 md:py-24` string across every `*-page.tsx` (sections stay
+  local/hardcoded per the `[Component split]` entry — `home-page.tsx` already ran through the
+  `Section` component so it picked up the change for free). Hero sections keep their own
+  `py-20 md:py-28` — unaffected, they don't stack against a section above them. Dark/navy/
+  orange inner panel padding (`px-8 py-12 …`) also untouched — that's padding inside a single
+  block, not a boundary between two.
+- If this still reads as too tight or too loose, change `SECTION_Y` and re-run the same
+  find/replace — don't hand-tune individual pages.
+- Date: 2026-09-17
+
+### [Hero imagery] — dark hero sections use a real photo, not a flat fill
+- Rule: `/about`'s hero was the only one with an image behind the black overlay
+  (`under-construction-hero.webp` at `opacity-40` under `bg-mvcb-black/70`); `/portfolio` and
+  `/services` were still a flat `bg-mvcb-black/80` over nothing. Brought both in line with the
+  same pattern — `<Image fill priority className="object-cover opacity-40">` + a
+  `bg-mvcb-black/70` overlay div, both inside the `absolute inset-0 aria-hidden` wrapper — and
+  picked one of the site's own before/after "after" shots per page so the photo matches the
+  page's subject: `/portfolio` uses `pool-patio-after.webp`, `/services` uses
+  `addition-after.webp`. Follow this exact overlay pair (`opacity-40` image, `/70` black) for
+  any future dark hero — `/80` with no image was the inconsistent one-off, not a competing
+  pattern.
 - Date: 2026-09-17
