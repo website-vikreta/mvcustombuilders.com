@@ -490,3 +490,24 @@ here so the site stays uniform across pages and sessions.
   unchanged. No new attribute needed — the check is automatic per-element.
 - Where: `components/ui/scroll-reveal-init.tsx`.
 - Date: 2026-08-17
+
+### [Imagery] — services grid uses licensed Unsplash stock, same 1200×900 pipeline
+- Rule: `/services`'s 15-card grid had a "Project Photos Coming Soon" placeholder box on
+  every card (no real project photos exist per-service yet). Filled it with one Unsplash photo
+  per service, picked to match that service's actual subject (kitchen remodel → a kitchen mid
+  reno, electrical upgrades → an electrician at a panel, etc.), not a generic fill. Only
+  `images.unsplash.com/photo-...` (free tier) URLs are used — never `plus.unsplash.com/
+  premium_photo-...` (Unsplash+, paid/licensed, would need a subscription this project doesn't
+  have). Downloaded full-size, then ran through the same crop pipeline as the portfolio
+  before/after photos: `sharp().resize(1200, 900, {fit:"cover"}).webp({quality:82})`, saved to
+  `public/images/services/<slug>.webp`. `SERVICES` entries in `services-page.tsx` carry
+  `image`/`imageAlt` fields; alt text describes the photo's actual content, not an unverifiable
+  claim that it's the company's own job (per the fabricated-facts rule in this log).
+- Unsplash's official search API needs an access key this project doesn't have, and the
+  unofficial `unsplash.com/napi/search/photos` endpoint is unreliable when hit directly (works
+  once, then 401s — likely bot-protected). `WebFetch` on the public `unsplash.com/s/photos/
+  <query>` search page works reliably instead and returns direct photo URLs with alt text.
+- These are placeholders per the site's own "real photography preferred, stock as placeholder"
+  rule — swap them for real jobsite photos of each service as they become available, same
+  target size.
+- Date: 2026-09-17
