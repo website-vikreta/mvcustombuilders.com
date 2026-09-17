@@ -8,6 +8,7 @@ import {
 } from "react-bootstrap-icons";
 
 import Action from "@/components/ui/action";
+import FaqAccordion from "@/components/ui/faq-accordion";
 import ProjectCarousel from "@/components/ui/project-carousel";
 import ScrollRevealInit from "@/components/ui/scroll-reveal-init";
 import {
@@ -184,6 +185,44 @@ const COVERAGE = [
     region: "Central Jersey",
     towns:
       "Edison, Woodbridge, Union, Elizabeth, Middletown, Brunswick, Princeton, Morristown, Summit",
+  },
+];
+
+export const FAQ_ITEMS = [
+  {
+    question: "Do you handle the whole renovation, or just parts of it?",
+    answer:
+      "We run the entire job ourselves: permitting, framing, electrical and plumbing rough-in, and finish work, coordinated by one team instead of a chain of subcontractors you have to manage yourself.",
+  },
+  {
+    question: "Are you licensed and insured?",
+    answer:
+      "Yes. We hold NJ DCA license #13VH12948300, SBE certification #SBE202409, and current OSHA and liability coverage. Full certification details are on our Certifications page.",
+  },
+  {
+    question: "What areas do you work in?",
+    answer:
+      "North and Central Jersey, in more than 20 towns including Belleville, Newark, Clifton, Montclair, Nutley, and Bloomfield. If you're not sure we cover your address, ask when you request a quote.",
+  },
+  {
+    question: "How long does a renovation take?",
+    answer:
+      "It depends on the scope: a bathroom runs weeks, a whole-home renovation runs months. We give you a real timeline after the walkthrough, before you sign anything, not a guess up front.",
+  },
+  {
+    question: "Do you work on older or historic homes specifically?",
+    answer:
+      "That's most of what we do. Old framing, original masonry, and non-standard dimensions all change how a project gets planned, and we plan around what's actually there instead of forcing a modern layout onto it.",
+  },
+  {
+    question: "Do I need to hire an architect myself?",
+    answer:
+      "Not usually. For most residential work we handle plans and permitting in-house. If a project needs a licensed architect or engineer, we coordinate that as part of the job.",
+  },
+  {
+    question: "What's included in the price you give me?",
+    answer:
+      "A written scope covering materials, labor, and permitting for what we discussed at the walkthrough. Anything outside that scope, like a problem found once a wall's opened up, gets flagged and priced before we do it, not added to the bill after.",
   },
 ];
 
@@ -491,6 +530,20 @@ export default function HomePage() {
               />
               31 Bridge St, Belleville, NJ 07109
             </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* FAQ */}
+      <Section id="faq">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
+          <SectionHeading
+            eyebrow="what people usually ask us"
+            title="Common Questions"
+            intro="Answers to what most homeowners want to know before the first walkthrough. Call or send a message if yours isn't here."
+          />
+          <div data-reveal>
+            <FaqAccordion items={FAQ_ITEMS} />
           </div>
         </div>
       </Section>
