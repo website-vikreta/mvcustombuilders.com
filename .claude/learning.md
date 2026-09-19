@@ -599,3 +599,20 @@ here so the site stays uniform across pages and sessions.
   any future dark hero — `/80` with no image was the inconsistent one-off, not a competing
   pattern.
 - Date: 2026-09-17
+
+### [Legal pages] — one route per document, redirect the old combined page
+- Rule: the single `/legal` page (labeled "Privacy Policy" but never covering terms or a
+  disclaimer) was split into three routes — `/privacy-policy`, `/terms-of-service`,
+  `/disclaimer` — each its own `app/<route>/page.tsx` + `components/ui/<name>-page.tsx`,
+  copying the exact hero + sidebar-nav-with-anchor-links layout `legal-page.tsx` established
+  (don't invent a new legal-page layout; this one already reads well and is accessible). The
+  old `/legal` route is gone from `app/`; a permanent redirect to `/privacy-policy` lives in
+  `next.config.ts`'s `redirects()` so old links/indexed results don't 404. All legal content is
+  marked placeholder — every one of these files opens with a `PLACEHOLDER LEGAL CONTENT — must
+  be reviewed and approved by a licensed attorney before this page goes live` comment; don't
+  strip that comment without an actual attorney review happening first.
+- Where: `app/privacy-policy/`, `app/terms-of-service/`, `app/disclaimer/`,
+  `components/ui/privacy-policy-page.tsx`, `components/ui/terms-of-service-page.tsx`,
+  `components/ui/disclaimer-page.tsx`, `next.config.ts`, `components/ui/site-footer.tsx` (now
+  three links, `flex-wrap` added to the bottom-bar link row since it holds more items).
+- Date: 2026-09-18

@@ -1,45 +1,43 @@
-import {
-  PatchCheckFill,
-  FileEarmarkCheck,
-  ConeStriped,
-  ShieldCheck,
-} from "react-bootstrap-icons";
+import Image from "next/image";
+import { ShieldFillCheck } from "react-bootstrap-icons";
 
 import Action from "@/components/ui/action";
 import ScrollRevealInit from "@/components/ui/scroll-reveal-init";
+import { CREDENTIAL_LOGOS } from "@/lib/credential-logos";
 
 const CERTIFICATIONS = [
   {
-    icon: PatchCheckFill,
-    title: "DCA Licensed Renovation Contractor",
+    logo: CREDENTIAL_LOGOS.dca,
+    title: "DCA Licensed",
     issuingBody: "NJ Division of Consumer Affairs",
     idLabel: "REG #13VH12948300",
     description:
-      "Registered with the New Jersey Division of Consumer Affairs. This registration means our business practices, warranties, and building methods meet the state's requirements for licensed residential contractors.",
+      "Registered with the NJ Division of Consumer Affairs for residential building work.",
   },
   {
-    icon: ShieldCheck,
-    title: "SBE Approved Contractor",
+    logo: CREDENTIAL_LOGOS.sbe,
+    title: "SBE Approved",
     issuingBody: "NJ Small Business Enterprise Program",
     idLabel: "CERT #SBE202409",
     description:
-      "Certified Small Business Enterprise under New Jersey's SBE program, confirming our tax compliance and standing to do business in the municipalities we serve.",
+      "Certified Small Business Enterprise under New Jersey's state program.",
   },
   {
-    icon: ConeStriped,
-    title: "OSHA Certified Operations",
+    logo: CREDENTIAL_LOGOS.osha,
+    title: "OSHA Certified",
     issuingBody: "Occupational Safety and Health Administration",
     idLabel: "OSHA CERTIFIED",
-    description:
-      "Every crew member trains on OSHA safety protocols before stepping on a job site. We keep every site clean, guarded, and hazard-free.",
+    description: "Site safety protocols followed on every job, on the small ones too.",
   },
   {
-    icon: FileEarmarkCheck,
-    title: "Licensed & Insured Coverage",
+    // Licensed & Insured has no badge file yet — ShieldFillCheck stands in
+    // until a real insurance/bonding badge is available.
+    logo: null,
+    title: "Insured & Bonded",
     issuingBody: "General Liability & Workers' Compensation Insurance",
     idLabel: "POLICY ACTIVE",
     description:
-      "Comprehensive general liability and workers' compensation coverage protects our clients and crew throughout every project, from framing to final walkthrough.",
+      "Full structural liability coverage, so a problem on site stays our problem.",
   },
 ];
 
@@ -66,17 +64,27 @@ export default function CertificationsPage() {
       <section className="py-10 md:py-16">
         <div className="mx-auto flex max-w-5xl flex-col gap-6 px-6 sm:px-8">
           {CERTIFICATIONS.map(
-            ({ icon: Icon, title, issuingBody, idLabel, description }) => (
+            ({ logo, title, issuingBody, idLabel, description }) => (
               <div
                 key={title}
                 data-reveal
                 className="flex flex-col gap-6  border border-mvcb-line bg-background p-8 sm:flex-row sm:items-start"
               >
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center  border border-mvcb-line">
-                  <Icon
-                    className="h-7 w-7 text-mvcb-orange"
-                    aria-hidden="true"
-                  />
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center  border border-mvcb-line bg-background p-2">
+                  {logo ? (
+                    <Image
+                      src={logo}
+                      alt=""
+                      width={64}
+                      height={64}
+                      className="h-full w-full object-contain grayscale"
+                    />
+                  ) : (
+                    <ShieldFillCheck
+                      className="h-7 w-7 text-mvcb-orange"
+                      aria-hidden="true"
+                    />
+                  )}
                 </div>
                 <div className="flex-1">
                   <div className="flex flex-wrap items-start justify-between gap-3">
