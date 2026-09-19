@@ -1,4 +1,4 @@
-import { Instagram } from "react-bootstrap-icons";
+import { Google, Instagram } from "react-bootstrap-icons";
 
 import Action from "@/components/ui/action";
 import ScrollRevealInit from "@/components/ui/scroll-reveal-init";
@@ -96,7 +96,7 @@ export default function TestimonialsPage() {
         </div>
       </section>
 
-      {/* LEAVE A REVIEW */}
+      {/* SOCIAL PROOF */}
       <section className="py-10 md:py-16">
         <div
           data-reveal
@@ -105,32 +105,24 @@ export default function TestimonialsPage() {
           <h2 className="text-2xl font-extrabold tracking-[-0.02em] uppercase text-white md:text-3xl">
             Had a Great Experience?
           </h2>
-          <p className="text-base leading-relaxed text-neutral-400">
-            Share your feedback on Google and help other New Jersey homeowners
-            find us.
+          <p className="max-w-xl text-base leading-relaxed text-neutral-400">
+            Share your feedback on Google or follow our latest projects on
+            Instagram.
           </p>
-          <Action href="https://www.google.com/search?q=MV+Custom+Builders+Belleville+NJ+reviews">
-            Leave a Google review
-          </Action>
-        </div>
-      </section>
-
-      {/* INSTAGRAM */}
-      <section className="py-10 md:py-16">
-        <div
-          data-reveal
-          className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-6 sm:px-8 md:flex-row md:items-center md:justify-between"
-        >
-          <h2 className="text-xl font-extrabold tracking-[-0.02em] text-mvcb-black uppercase md:text-2xl">
-            Follow Our Work @MV_Custom_Builders
-          </h2>
-          <Action
-            href="https://www.instagram.com/mv_custom_builders"
-            variant="secondary"
-          >
-            <Instagram className="h-4 w-4" aria-hidden="true" />
-            Follow on Instagram
-          </Action>
+          <div className="mt-2 flex flex-col gap-3 sm:flex-row">
+            <Action href="https://www.google.com/search?q=MV+Custom+Builders+Belleville+NJ+reviews">
+              <Google className="h-4 w-4" aria-hidden="true" />
+              Leave a Google review
+            </Action>
+            <Action
+              href="https://www.instagram.com/mv_custom_builders"
+              variant="secondary"
+              tone="dark"
+            >
+              <Instagram className="h-4 w-4" aria-hidden="true" />
+              Follow on Instagram
+            </Action>
+          </div>
         </div>
       </section>
 
