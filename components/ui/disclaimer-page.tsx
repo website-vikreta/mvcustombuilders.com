@@ -2,13 +2,22 @@
 // attorney before this page goes live in production.
 
 const SECTIONS = [
-  { id: "general-information", title: "1. General Information Only" },
-  { id: "project-photos", title: "2. Project Photos" },
-  { id: "no-guarantee", title: "3. No Guarantee of Pricing or Timelines" },
-  { id: "agreement-required", title: "4. Agreement & Permits Required" },
-  { id: "no-liability", title: "5. No Liability Without Consultation" },
-  { id: "contact", title: "6. Contact" },
+  { id: "website-disclaimer", title: "1. Website Disclaimer" },
+  { id: "project-photos-and-estimates", title: "2. Project Photos and Estimates" },
+  { id: "external-links", title: "3. External Links" },
+  { id: "testimonials", title: "4. Testimonials" },
+  { id: "errors-and-omissions", title: "5. Errors and Omissions" },
+  { id: "logos-and-trademarks", title: "6. Logos and Trademarks" },
+  { id: "contact", title: "7. Contact Us" },
 ];
+
+function SectionHeading({ number, title }: { number: string; title: string }) {
+  return (
+    <h2 className="text-xl font-extrabold tracking-[-0.02em] text-mvcb-black uppercase">
+      {number}. {title}
+    </h2>
+  );
+}
 
 export default function DisclaimerPage() {
   return (
@@ -20,7 +29,7 @@ export default function DisclaimerPage() {
             Disclaimer
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Last updated: September 18, 2026 &middot; MV Custom Builders LLC
+            Last updated: September 19, 2026 &middot; MV Custom Builders LLC
           </p>
         </div>
       </section>
@@ -47,95 +56,139 @@ export default function DisclaimerPage() {
           </nav>
 
           <div className="flex flex-1 flex-col gap-10">
-            <div id="general-information">
-              <h2 className="text-xl font-extrabold tracking-[-0.02em] text-mvcb-black uppercase">
-                1. General Information Only
-              </h2>
+            <div id="website-disclaimer">
+              <SectionHeading number="1" title="Website Disclaimer" />
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                The content on this website is provided for general
-                informational purposes only. It&apos;s not intended as
-                professional, legal, or financial advice, and shouldn&apos;t
-                be treated as a substitute for a direct consultation with our
-                team about your specific project.
+                The information provided by MV Custom Builders
+                (&quot;Company&quot;, &quot;we&quot;, &quot;our&quot;,
+                &quot;us&quot;) on mvcustombuilders.com (the &quot;Site&quot;)
+                is for general informational purposes only. All information
+                on the Site is provided in good faith; however, we make no
+                representation or warranty of any kind, express or implied,
+                regarding the accuracy, adequacy, validity, reliability,
+                availability, or completeness of any information on the
+                Site.
+              </p>
+              <p className="mt-3 text-sm leading-relaxed font-semibold text-mvcb-black uppercase">
+                Under no circumstance shall we have any liability to you for
+                any loss or damage of any kind incurred as a result of the
+                use of the Site or reliance on any information provided on
+                the Site. Your use of the Site and your reliance on any
+                information on the Site is solely at your own risk.
               </p>
             </div>
 
-            <div id="project-photos">
-              <h2 className="text-xl font-extrabold tracking-[-0.02em] text-mvcb-black uppercase">
-                2. Project Photos
-              </h2>
+            <div id="project-photos-and-estimates">
+              <SectionHeading number="2" title="Project Photos and Estimates" />
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Photos on this website represent past projects we&apos;ve
-                completed. They&apos;re shown to illustrate the type and
-                quality of our work, not to promise a specific outcome.
-                Results vary by project, based on the home&apos;s existing
-                condition, scope, budget, and other site-specific factors.
+                Project photos, before/after images, and case studies shown
+                on this Site represent the outcome of specific past projects
+                for specific clients under specific conditions. They are
+                shown for illustrative purposes only and do not guarantee
+                similar results, pricing, materials, or timelines for any
+                other project.
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                Any pricing information, quote, or estimate provided through
+                this Site or its contact form is preliminary and
+                non-binding. Final pricing, scope, and timeline are
+                determined only through direct consultation and are governed
+                exclusively by a separately signed written agreement between
+                MV Custom Builders and the client, subject to applicable
+                permits and inspections. Nothing on this Site should be
+                relied upon as a guarantee of cost, availability, or project
+                duration.
               </p>
             </div>
 
-            <div id="no-guarantee">
-              <h2 className="text-xl font-extrabold tracking-[-0.02em] text-mvcb-black uppercase">
-                3. No Guarantee of Pricing or Timelines
-              </h2>
+            <div id="external-links">
+              <SectionHeading number="3" title="External Links" />
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Nothing on this website is a guarantee of pricing,
-                availability, or project timelines. Actual costs and
-                schedules depend on the specifics of your project and are
-                only confirmed once we&apos;ve walked the property and
-                provided a formal, written estimate.
+                The Site may contain links to other websites or content
+                belonging to or originating from third parties. Such
+                external links are not investigated, monitored, or checked
+                for accuracy, adequacy, validity, reliability, availability,
+                or completeness by us.
+              </p>
+              <p className="mt-3 text-sm leading-relaxed font-semibold text-mvcb-black uppercase">
+                We do not warrant, endorse, guarantee, or assume
+                responsibility for the accuracy or reliability of any
+                information offered by third-party websites linked through
+                the Site. We will not be a party to or in any way
+                responsible for monitoring any transaction between you and
+                third-party providers of products or services.
               </p>
             </div>
 
-            <div id="agreement-required">
-              <h2 className="text-xl font-extrabold tracking-[-0.02em] text-mvcb-black uppercase">
-                4. Agreement &amp; Permits Required
-              </h2>
+            <div id="testimonials">
+              <SectionHeading number="4" title="Testimonials" />
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                All construction, renovation, and restoration work requires a
-                separate, signed agreement between you and MV Custom
-                Builders LLC, along with any permits required by the
-                applicable municipality and the NJ Division of Consumer
-                Affairs. Nothing on this website substitutes for that
-                agreement or those permits.
+                The Site may display testimonials and reviews sourced from
+                our public Google Business Profile. These reflect the
+                real-life experiences and opinions of the individual
+                reviewers, are not edited or reviewed by us before
+                publication on Google, and are displayed on this Site as
+                posted publicly. These experiences are personal to those
+                particular reviewers and may not necessarily be
+                representative of all clients&apos; experiences.
+              </p>
+              <p className="mt-3 text-sm leading-relaxed font-semibold text-mvcb-black uppercase">
+                Your individual results may vary.
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                The views and opinions contained in these reviews belong
+                solely to the individual reviewer and do not necessarily
+                reflect our views or guarantee similar outcomes for future
+                projects.
               </p>
             </div>
 
-            <div id="no-liability">
-              <h2 className="text-xl font-extrabold tracking-[-0.02em] text-mvcb-black uppercase">
-                5. No Liability Without Consultation
-              </h2>
+            <div id="errors-and-omissions">
+              <SectionHeading number="5" title="Errors and Omissions" />
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                MV Custom Builders LLC is not liable for decisions made
-                solely on the basis of this website&apos;s content, without a
-                direct consultation with our team. Always confirm project
-                specifics, pricing, and scope with us directly before making
-                decisions based on anything you&apos;ve read here.
+                While we have made every effort to ensure the information on
+                this Site is accurate, MV Custom Builders is not responsible
+                for any errors, omissions, or for results obtained from the
+                use of this information. All information on this Site is
+                provided &quot;as is,&quot; with no guarantee of
+                completeness, accuracy, or timeliness, and without warranty
+                of any kind, express or implied.
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                In no event will MV Custom Builders, its partners, agents,
+                or employees be liable to you or anyone else for any
+                decision made or action taken in reliance on the information
+                on this Site, or for any consequential, special, or similar
+                damages, even if advised of the possibility of such damages.
+              </p>
+            </div>
+
+            <div id="logos-and-trademarks">
+              <SectionHeading number="6" title="Logos and Trademarks" />
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                All logos and trademarks of third parties referenced on
+                mvcustombuilders.com, including certification and licensing
+                marks, are the property of their respective owners. Display
+                of such logos indicates that MV Custom Builders holds the
+                referenced license, certification, or membership as of the
+                date noted, and does not imply additional endorsement,
+                sponsorship, or affiliation beyond that credential.
               </p>
             </div>
 
             <div id="contact">
-              <h2 className="text-xl font-extrabold tracking-[-0.02em] text-mvcb-black uppercase">
-                6. Contact
-              </h2>
+              <SectionHeading number="7" title="Contact Us" />
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                For questions about this disclaimer, contact our Belleville
-                office:
+                Should you have any feedback, comments, or questions about
+                this Disclaimer, please contact us by email:{" "}
+                <a
+                  href="mailto:mvcustombuilder@gmail.com"
+                  className="text-mvcb-black underline hover:text-mvcb-orange"
+                >
+                  mvcustombuilder@gmail.com
+                </a>
+                .
               </p>
-              <div className="mt-4 border border-mvcb-line bg-background p-4 text-sm">
-                <p className="font-semibold text-mvcb-black">
-                  MV Custom Builders LLC
-                </p>
-                <p className="mt-1 text-muted-foreground">
-                  31 Bridge St, Belleville, NJ 07109
-                </p>
-                <p className="mt-1 text-muted-foreground">
-                  Phone: (973) 555-0147
-                </p>
-                <p className="mt-1 text-muted-foreground">
-                  NJ DCA License #13VH12948300 &middot; SBE Certification
-                  #SBE202409
-                </p>
-              </div>
             </div>
           </div>
         </div>
