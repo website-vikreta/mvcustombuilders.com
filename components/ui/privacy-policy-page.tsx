@@ -320,7 +320,10 @@ export default function PrivacyPolicyPage() {
               <SectionHeading number="14" title="Analytics" />
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 We use Google Analytics (GA4) to monitor and analyze use of
-                our Service.
+                our Service. We also use Microsoft Clarity to record sessions
+                and generate heatmaps of how visitors use the Service.
+                Clarity masks sensitive input fields, such as form fields, by
+                default.
               </p>
             </div>
 
