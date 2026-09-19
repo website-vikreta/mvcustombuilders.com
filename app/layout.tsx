@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import Script from "next/script";
 import "./globals.css";
 
 const jakartaSans = Plus_Jakarta_Sans({
@@ -17,9 +18,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${jakartaSans.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">{children}</body>
-      {/* Also set NEXT_PUBLIC_GA_MEASUREMENT_ID in the hosting provider's
-          env vars (e.g. Vercel) before deploying, same as the EmailJS keys. */}
+      {/* Also set NEXT_PUBLIC_GA_MEASUREMENT_ID and NEXT_PUBLIC_CLARITY_PROJECT_ID
+          in the hosting provider's env vars (e.g. Vercel) before deploying,
+          same as the EmailJS keys. */}
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID!} />
+      <Script id="microsoft-clarity" strategy="afterInteractive">
+        {`(function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "${process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID}");`}
+      </Script>
     </html>
   );
 }
