@@ -1,13 +1,17 @@
+// PLACEHOLDER LEGAL CONTENT — must be reviewed and approved by a licensed
+// attorney before this page goes live in production.
+
 const SECTIONS = [
   { id: "information-we-collect", title: "1. Information We Collect" },
   { id: "how-we-use-it", title: "2. How We Use It" },
-  { id: "third-party-sharing", title: "3. Third-Party Sharing" },
-  { id: "your-privacy-rights", title: "4. Your Privacy Rights" },
-  { id: "security", title: "5. Security" },
-  { id: "contact", title: "6. Contact" },
+  { id: "third-party-services", title: "3. Third-Party Services" },
+  { id: "cookies", title: "4. Cookies & Analytics" },
+  { id: "no-selling-data", title: "5. We Don't Sell Your Data" },
+  { id: "your-rights", title: "6. Your Rights" },
+  { id: "contact", title: "7. Contact" },
 ];
 
-export default function LegalPage() {
+export default function PrivacyPolicyPage() {
   return (
     <>
       {/* HERO */}
@@ -17,7 +21,7 @@ export default function LegalPage() {
             Privacy Policy
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Last updated: August 16, 2026 &middot; MV Custom Builders LLC
+            Last updated: September 18, 2026 &middot; MV Custom Builders LLC
           </p>
         </div>
       </section>
@@ -49,14 +53,15 @@ export default function LegalPage() {
                 1. Information We Collect
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                We collect the information needed to plan projects and respond
-                to inquiries: your name, email, phone number, project site
-                address, and details relevant to permitting with the NJ Division
-                of Consumer Affairs.
+                When you submit our contact form, we collect the information
+                you provide: your name, email address, phone number, project
+                type, and your message describing the project.
               </p>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                We also use cookies and basic site analytics to see how visitors
-                use the site and to manage incoming quote requests.
+                We also use Google Analytics (GA4) to collect standard usage
+                data about visitors to this website, such as pages viewed,
+                approximate location, device and browser type, and how you
+                arrived at the site.
               </p>
             </div>
 
@@ -68,60 +73,69 @@ export default function LegalPage() {
                 We use this information to:
               </p>
               <ul className="mt-3 flex flex-col gap-2 pl-5 text-sm leading-relaxed text-muted-foreground [&>li]:list-disc">
-                <li>Estimate project scope and pricing.</li>
+                <li>Respond to your inquiry and follow up on quote requests.</li>
                 <li>
-                  Prepare permit and licensing paperwork with local
-                  municipalities.
-                </li>
-                <li>
-                  Communicate with you about scheduling and project updates.
+                  Understand how visitors use this website so we can improve
+                  it.
                 </li>
               </ul>
             </div>
 
-            <div id="third-party-sharing">
+            <div id="third-party-services">
               <h2 className="text-xl font-extrabold tracking-[-0.02em] text-mvcb-black uppercase">
-                3. Third-Party Sharing
+                3. Third-Party Services
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                We don&apos;t sell or rent your information to marketing
-                companies. We share it only with subcontractors (electricians,
-                HVAC technicians, surveyors) when it&apos;s necessary to
-                complete a project, and only the details they need to do their
-                part of the work.
+                We use EmailJS to process and deliver contact form submissions
+                to our office. We use Google Analytics (GA4) to measure site
+                traffic and usage. These providers process data on our behalf
+                and are bound by their own privacy and data-handling terms.
               </p>
             </div>
 
-            <div id="your-privacy-rights">
+            <div id="cookies">
               <h2 className="text-xl font-extrabold tracking-[-0.02em] text-mvcb-black uppercase">
-                4. Your Privacy Rights
+                4. Cookies &amp; Analytics
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                You can ask to review, update, or delete the information we have
-                on file for you at any time. Contact us using the information in
-                Section 6 below.
+                Google Analytics (GA4) sets cookies in your browser to
+                distinguish visitors and measure site usage. You can disable
+                cookies in your browser settings, though some site features
+                may not work as intended without them.
               </p>
             </div>
 
-            <div id="security">
+            <div id="no-selling-data">
               <h2 className="text-xl font-extrabold tracking-[-0.02em] text-mvcb-black uppercase">
-                5. Security
+                5. We Don&apos;t Sell Your Data
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                We store client information behind standard access controls and
-                limit who on our team can view it. Only office staff and the
-                project lead working on your job have access to your details.
+                We don&apos;t sell or rent your personal information to
+                marketing companies or any other third party.
+              </p>
+            </div>
+
+            <div id="your-rights">
+              <h2 className="text-xl font-extrabold tracking-[-0.02em] text-mvcb-black uppercase">
+                6. Your Rights
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                You can ask to review, update, or delete the information we
+                have on file for you at any time. Contact us using the
+                information in Section 7 below, and we&apos;ll process your
+                request promptly.
               </p>
             </div>
 
             <div id="contact">
               <h2 className="text-xl font-extrabold tracking-[-0.02em] text-mvcb-black uppercase">
-                6. Contact
+                7. Contact
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                For questions about this policy, contact our Belleville office:
+                For questions about this policy or to request your data be
+                deleted, contact our Belleville office:
               </p>
-              <div className="mt-4  border border-mvcb-line bg-background p-4 text-sm">
+              <div className="mt-4 border border-mvcb-line bg-background p-4 text-sm">
                 <p className="font-semibold text-mvcb-black">
                   MV Custom Builders LLC
                 </p>
@@ -130,6 +144,10 @@ export default function LegalPage() {
                 </p>
                 <p className="mt-1 text-muted-foreground">
                   Phone: (973) 555-0147
+                </p>
+                <p className="mt-1 text-muted-foreground">
+                  NJ DCA License #13VH12948300 &middot; SBE Certification
+                  #SBE202409
                 </p>
               </div>
             </div>

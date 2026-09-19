@@ -85,9 +85,15 @@ export default function SiteFooter() {
 
         <div className="flex flex-col gap-3 py-8 text-xs text-neutral-500 sm:flex-row sm:items-center sm:justify-between">
           <p>&copy; 2026 MV Custom Builders LLC. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <Link href="/legal" className="hover:text-white">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <Link href="/privacy-policy" className="hover:text-white">
               Privacy Policy
+            </Link>
+            <Link href="/terms-of-service" className="hover:text-white">
+              Terms of Service
+            </Link>
+            <Link href="/disclaimer" className="hover:text-white">
+              Disclaimer
             </Link>
             <p>
               Design &amp; Developed by{" "}
