@@ -1,7 +1,13 @@
 "use client";
 
 import emailjs from "@emailjs/browser";
-import { CheckCircleFill, Clock, GeoAlt, Phone } from "react-bootstrap-icons";
+import {
+  CheckCircleFill,
+  Clock,
+  GeoAlt,
+  Phone,
+  Whatsapp,
+} from "react-bootstrap-icons";
 import { useEffect, useState } from "react";
 
 import Action from "@/components/ui/action";
@@ -340,6 +346,15 @@ export default function ContactPage() {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Action href="tel:+19735550147" size="lg">
               Call (973) 555-0147
+            </Action>
+            <Action
+              href="https://wa.me/19735550147"
+              variant="secondary"
+              tone="dark"
+              size="lg"
+            >
+              <Whatsapp className="h-4 w-4" aria-hidden="true" />
+              WhatsApp Us
             </Action>
           </div>
         </div>

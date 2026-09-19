@@ -12,28 +12,33 @@ import Image from "next/image";
 import Action from "@/components/ui/action";
 import ScrollRevealInit from "@/components/ui/scroll-reveal-init";
 import StatCounters from "@/components/ui/stat-counters";
+import { CREDENTIAL_LOGOS } from "@/lib/credential-logos";
 
 const CREDENTIALS = [
   {
     icon: PatchCheckFill,
+    logo: CREDENTIAL_LOGOS.dca,
     title: "DCA Licensed Renovation Contractor",
     description:
       "Regulated by the NJ Division of Consumer Affairs for safe residential builds.",
   },
   {
     icon: ShieldCheck,
+    logo: CREDENTIAL_LOGOS.sbe,
     title: "SBE Approved Contractor",
     description:
       "Official Small Business Enterprise status matching top NJ standards.",
   },
   {
     icon: ConeStriped,
+    logo: CREDENTIAL_LOGOS.osha,
     title: "OSHA Certified Operations",
     description:
       "Site compliance held to maximum safety protocols on every job.",
   },
   {
     icon: FileEarmarkCheck,
+    logo: null,
     title: "Licensed & Insured Coverage",
     description:
       "Comprehensive structural liability coverage protecting our clients.",
@@ -144,13 +149,24 @@ export default function AboutPage() {
           </div>
 
           <div className="mt-12 grid md:mt-16 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {CREDENTIALS.map(({ icon: Icon, title, description }) => (
+            {CREDENTIALS.map(({ icon: Icon, logo, title, description }) => (
               <div
                 key={title}
                 data-reveal
                 className="border border-mvcb-line p-6"
               >
-                <Icon className="h-6 w-6 text-mvcb-orange" aria-hidden="true" />
+                {logo ? (
+                  <span className="relative block h-8 w-24">
+                    <Image
+                      src={logo}
+                      alt=""
+                      fill
+                      className="object-contain object-left"
+                    />
+                  </span>
+                ) : (
+                  <Icon className="h-6 w-6 text-mvcb-orange" aria-hidden="true" />
+                )}
                 <h3 className="mt-3 text-base font-extrabold tracking-[-0.02em] text-mvcb-black uppercase">
                   {title}
                 </h3>
