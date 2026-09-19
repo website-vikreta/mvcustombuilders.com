@@ -1,6 +1,9 @@
+// PLACEHOLDER LEGAL CONTENT — must be reviewed and approved by a licensed
+// attorney before this page goes live in production.
+
 import type { Metadata } from "next";
 
-import LegalPage from "@/components/ui/legal-page";
+import PrivacyPolicyPage from "@/components/ui/privacy-policy-page";
 import SiteFooter from "@/components/ui/site-footer";
 import SiteHeader from "@/components/ui/site-header";
 
@@ -9,12 +12,12 @@ export const metadata: Metadata = {
   description: "Privacy policy for MV Custom Builders LLC, Belleville NJ.",
 };
 
-export default function Legal() {
+export default function PrivacyPolicy() {
   return (
     <>
       <SiteHeader />
       <main>
-        <LegalPage />
+        <PrivacyPolicyPage />
       </main>
       <SiteFooter />
     </>
