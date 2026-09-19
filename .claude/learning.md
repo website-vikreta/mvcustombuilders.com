@@ -600,56 +600,19 @@ here so the site stays uniform across pages and sessions.
   pattern.
 - Date: 2026-09-17
 
-### [Footer] — orange card sizes itself, doesn't sit inside a padded CONTAINER
-- Rule: the black CTA panels every other page uses (`about-page.tsx` etc.) carry their own
-  `mx-auto max-w-6xl px-8 sm:px-12 md:px-16` — the box's painted edge is `max-w-6xl`, and the
-  `px-*` is internal padding, not an outer inset. The footer's orange contact card used to sit
-  as a plain child inside a `<div className={CONTAINER}>` (`CONTAINER` = `mx-auto max-w-6xl
-  px-8 sm:px-12 lg:px-16` from `section.tsx`), which put the container's own padding *outside*
-  the card as an extra inset — the card rendered narrower than the CTA panels above it by
-  2×that padding, an uneven edge the client flagged directly. Fixed by wrapping the footer's
-  content in a bare `mx-auto max-w-6xl` (no padding) instead of `CONTAINER`, so the orange
-  card's own edges land exactly where a CTA panel's would. The copyright bar (which still wants
-  to sit inset, unlike the orange card) got its own `px-8 sm:px-12 lg:px-16` directly, so its
-  inset is unchanged from before.
-- Why it matters going forward: `CONTAINER` is the right choice for wrapping *inset* content
-  (text, grids of cards with their own gaps) but the wrong choice for wrapping something that's
-  meant to visually match a full-bleed-within-max-w-6xl panel — those panels apply `mx-auto
-  max-w-6xl` and their own padding directly on themselves, they don't nest inside `CONTAINER`.
-  Don't wrap a solid-fill panel in `CONTAINER` — give it `mx-auto max-w-6xl` and its own
-  padding instead, matching the CTA-panel pattern.
-- Where: `components/ui/site-footer.tsx`.
-### [Rule override] — real credential logos now used, supersedes the [Trust badges] entry above
-- What happened: the client added `public/credential_logos/{DCA,SBE,OSHA}.png` directly and
-  asked for them displayed next to every mention of that credential/license, site-wide. This
-  directly reverses the `[Trust badges]` entry above ("no third-party certification logos,
-  ever") from real research: NJ's DCA/SBE programs don't issue official public-use badges, and
-  OSHA doesn't certify businesses at all (only individual workers) — so the DCA/SBE images are
-  generic stock-style seals, not authentic government marks, and the OSHA image does appear to
-  be OSHA's real logo, which risks implying a federal endorsement that doesn't exist. This was
-  flagged to the client directly before implementing (a compliance/legal-risk call, not a style
-  preference), and they chose to proceed anyway — documented here per this file's own "follow
-  the rule or update it with reason, no silent divergence" policy, not implemented quietly.
-- Implementation: `lib/credential-logos.ts` exports one `CREDENTIAL_LOGOS` map (`dca`, `sbe`,
-  `osha` → their public paths) — the single source every page imports from, so a future logo
-  swap is a one-file edit. Every existing credential title/badge display got a `logo` field
-  added to its data array (`null` for "Fully Insured"/"Licensed & Insured", which has no
-  specific issuing body). Rendering adapts per context rather than forcing one treatment:
-  square bordered white tile on a colored/solid background (home page's orange-tile
-  `CREDENTIALS`, `certifications-page.tsx`'s bordered icon slot) so the logos' own colors read
-  correctly against something other than solid orange; a small `h-8 w-24 object-contain
-  object-left` box on cards that already sit on a white background with no tile
-  (`about-page.tsx`); a small `bg-white` chip (`h-5`/`h-6`) before the text label wherever the
-  credential is just inline text on a dark/orange background (home hero trust badges, footer
-  credentials list) so the logo doesn't disappear into that background. All logo `<Image>`s use
-  `alt=""` — every placement sits directly beside visible text that already names the
-  credential, so a repeated alt would just be redundant for screen readers.
-- Where: `lib/credential-logos.ts` (new), `components/ui/home-page.tsx` (`TRUST_BADGES` +
-  `CREDENTIALS`), `components/ui/about-page.tsx` (`CREDENTIALS`),
-  `components/ui/certifications-page.tsx` (`CERTIFICATIONS`), `components/ui/site-footer.tsx`
-  (credentials list).
-- Note: a stale `feature/certification-badges-resolve` branch/worktree already built a similar
-  `CertBadge` abstraction, but it's based on a point ~12 commits behind this release (predates
-  the service-subpages, FAQ, and portfolio-real-photos work) — not built on top of it here; this
-  entry describes a fresh implementation against current `main`/release code.
-- Date: 2026-09-19
+### [Legal pages] — one route per document, redirect the old combined page
+- Rule: the single `/legal` page (labeled "Privacy Policy" but never covering terms or a
+  disclaimer) was split into three routes — `/privacy-policy`, `/terms-of-service`,
+  `/disclaimer` — each its own `app/<route>/page.tsx` + `components/ui/<name>-page.tsx`,
+  copying the exact hero + sidebar-nav-with-anchor-links layout `legal-page.tsx` established
+  (don't invent a new legal-page layout; this one already reads well and is accessible). The
+  old `/legal` route is gone from `app/`; a permanent redirect to `/privacy-policy` lives in
+  `next.config.ts`'s `redirects()` so old links/indexed results don't 404. All legal content is
+  marked placeholder — every one of these files opens with a `PLACEHOLDER LEGAL CONTENT — must
+  be reviewed and approved by a licensed attorney before this page goes live` comment; don't
+  strip that comment without an actual attorney review happening first.
+- Where: `app/privacy-policy/`, `app/terms-of-service/`, `app/disclaimer/`,
+  `components/ui/privacy-policy-page.tsx`, `components/ui/terms-of-service-page.tsx`,
+  `components/ui/disclaimer-page.tsx`, `next.config.ts`, `components/ui/site-footer.tsx` (now
+  three links, `flex-wrap` added to the bottom-bar link row since it holds more items).
+- Date: 2026-09-18
