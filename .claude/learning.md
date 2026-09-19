@@ -619,4 +619,37 @@ here so the site stays uniform across pages and sessions.
   Don't wrap a solid-fill panel in `CONTAINER` — give it `mx-auto max-w-6xl` and its own
   padding instead, matching the CTA-panel pattern.
 - Where: `components/ui/site-footer.tsx`.
+### [Rule override] — real credential logos now used, supersedes the [Trust badges] entry above
+- What happened: the client added `public/credential_logos/{DCA,SBE,OSHA}.png` directly and
+  asked for them displayed next to every mention of that credential/license, site-wide. This
+  directly reverses the `[Trust badges]` entry above ("no third-party certification logos,
+  ever") from real research: NJ's DCA/SBE programs don't issue official public-use badges, and
+  OSHA doesn't certify businesses at all (only individual workers) — so the DCA/SBE images are
+  generic stock-style seals, not authentic government marks, and the OSHA image does appear to
+  be OSHA's real logo, which risks implying a federal endorsement that doesn't exist. This was
+  flagged to the client directly before implementing (a compliance/legal-risk call, not a style
+  preference), and they chose to proceed anyway — documented here per this file's own "follow
+  the rule or update it with reason, no silent divergence" policy, not implemented quietly.
+- Implementation: `lib/credential-logos.ts` exports one `CREDENTIAL_LOGOS` map (`dca`, `sbe`,
+  `osha` → their public paths) — the single source every page imports from, so a future logo
+  swap is a one-file edit. Every existing credential title/badge display got a `logo` field
+  added to its data array (`null` for "Fully Insured"/"Licensed & Insured", which has no
+  specific issuing body). Rendering adapts per context rather than forcing one treatment:
+  square bordered white tile on a colored/solid background (home page's orange-tile
+  `CREDENTIALS`, `certifications-page.tsx`'s bordered icon slot) so the logos' own colors read
+  correctly against something other than solid orange; a small `h-8 w-24 object-contain
+  object-left` box on cards that already sit on a white background with no tile
+  (`about-page.tsx`); a small `bg-white` chip (`h-5`/`h-6`) before the text label wherever the
+  credential is just inline text on a dark/orange background (home hero trust badges, footer
+  credentials list) so the logo doesn't disappear into that background. All logo `<Image>`s use
+  `alt=""` — every placement sits directly beside visible text that already names the
+  credential, so a repeated alt would just be redundant for screen readers.
+- Where: `lib/credential-logos.ts` (new), `components/ui/home-page.tsx` (`TRUST_BADGES` +
+  `CREDENTIALS`), `components/ui/about-page.tsx` (`CREDENTIALS`),
+  `components/ui/certifications-page.tsx` (`CERTIFICATIONS`), `components/ui/site-footer.tsx`
+  (credentials list).
+- Note: a stale `feature/certification-badges-resolve` branch/worktree already built a similar
+  `CertBadge` abstraction, but it's based on a point ~12 commits behind this release (predates
+  the service-subpages, FAQ, and portfolio-real-photos work) — not built on top of it here; this
+  entry describes a fresh implementation against current `main`/release code.
 - Date: 2026-09-19

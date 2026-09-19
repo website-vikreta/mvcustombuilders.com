@@ -21,12 +21,13 @@ import {
 } from "@/components/ui/section";
 import StatCounters from "@/components/ui/stat-counters";
 import TestimonialCarousel from "@/components/ui/testimonial-carousel";
+import { CREDENTIAL_LOGOS } from "@/lib/credential-logos";
 
 const TRUST_BADGES = [
-  "DCA Licensed",
-  "SBE Approved",
-  "OSHA Certified",
-  "Fully Insured",
+  { label: "DCA Licensed", logo: CREDENTIAL_LOGOS.dca },
+  { label: "SBE Approved", logo: CREDENTIAL_LOGOS.sbe },
+  { label: "OSHA Certified", logo: CREDENTIAL_LOGOS.osha },
+  { label: "Fully Insured", logo: null },
 ];
 
 const HERO_HIGHLIGHTS = [
@@ -158,24 +159,28 @@ const TESTIMONIALS = [
 const CREDENTIALS = [
   {
     icon: PatchCheckFill,
+    logo: CREDENTIAL_LOGOS.dca,
     title: "DCA Licensed",
     description:
       "Registered with the NJ Division of Consumer Affairs for residential building work.",
   },
   {
     icon: ShieldCheck,
+    logo: CREDENTIAL_LOGOS.sbe,
     title: "SBE Approved",
     description:
       "Certified Small Business Enterprise under New Jersey's state program.",
   },
   {
     icon: ConeStriped,
+    logo: CREDENTIAL_LOGOS.osha,
     title: "OSHA Certified",
     description:
       "Site safety protocols followed on every job, on the small ones too.",
   },
   {
     icon: FileEarmarkCheck,
+    logo: null,
     title: "Insured & Bonded",
     description:
       "Full structural liability coverage, so a problem on site stays our problem.",
@@ -294,13 +299,24 @@ export default function HomePage() {
 
           <ul
             data-reveal="children"
-            className="mt-10 flex flex-wrap gap-x-8 gap-y-3"
+            className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3"
           >
-            {TRUST_BADGES.map((label) => (
+            {TRUST_BADGES.map(({ label, logo }) => (
               <li
                 key={label}
-                className="text-xs font-bold tracking-[0.1em] text-white/70 uppercase"
+                className="flex items-center gap-2 text-xs font-bold tracking-[0.1em] text-white/70 uppercase"
               >
+                {logo ? (
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center bg-white p-0.5">
+                    <Image
+                      src={logo}
+                      alt=""
+                      width={24}
+                      height={24}
+                      className="h-full w-full object-contain"
+                    />
+                  </span>
+                ) : null}
                 {label}
               </li>
             ))}
@@ -372,15 +388,27 @@ export default function HomePage() {
           />
 
           <div className="flex flex-col">
-            {CREDENTIALS.map(({ icon: Icon, title, description }) => (
+            {CREDENTIALS.map(({ icon: Icon, logo, title, description }) => (
               <div
                 key={title}
                 data-reveal="mask"
                 className="flex h-full gap-6 border border-mvcb-line border-b-0 p-6 last:border-b md:p-8"
               >
-                <span className="flex h-14 w-14 shrink-0 items-center justify-center bg-mvcb-orange">
-                  <Icon className="h-6 w-6 text-white" aria-hidden="true" />
-                </span>
+                {logo ? (
+                  <span className="flex h-14 w-14 shrink-0 items-center justify-center border border-mvcb-line bg-background p-2">
+                    <Image
+                      src={logo}
+                      alt=""
+                      width={56}
+                      height={56}
+                      className="h-full w-full object-contain"
+                    />
+                  </span>
+                ) : (
+                  <span className="flex h-14 w-14 shrink-0 items-center justify-center bg-mvcb-orange">
+                    <Icon className="h-6 w-6 text-white" aria-hidden="true" />
+                  </span>
+                )}
                 <div>
                   <h3 className="text-base font-extrabold tracking-[-0.01em] text-mvcb-black uppercase">
                     {title}
