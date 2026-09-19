@@ -600,6 +600,25 @@ here so the site stays uniform across pages and sessions.
   pattern.
 - Date: 2026-09-17
 
+### [Footer] — orange card sizes itself, doesn't sit inside a padded CONTAINER
+- Rule: the black CTA panels every other page uses (`about-page.tsx` etc.) carry their own
+  `mx-auto max-w-6xl px-8 sm:px-12 md:px-16` — the box's painted edge is `max-w-6xl`, and the
+  `px-*` is internal padding, not an outer inset. The footer's orange contact card used to sit
+  as a plain child inside a `<div className={CONTAINER}>` (`CONTAINER` = `mx-auto max-w-6xl
+  px-8 sm:px-12 lg:px-16` from `section.tsx`), which put the container's own padding *outside*
+  the card as an extra inset — the card rendered narrower than the CTA panels above it by
+  2×that padding, an uneven edge the client flagged directly. Fixed by wrapping the footer's
+  content in a bare `mx-auto max-w-6xl` (no padding) instead of `CONTAINER`, so the orange
+  card's own edges land exactly where a CTA panel's would. The copyright bar (which still wants
+  to sit inset, unlike the orange card) got its own `px-8 sm:px-12 lg:px-16` directly, so its
+  inset is unchanged from before.
+- Why it matters going forward: `CONTAINER` is the right choice for wrapping *inset* content
+  (text, grids of cards with their own gaps) but the wrong choice for wrapping something that's
+  meant to visually match a full-bleed-within-max-w-6xl panel — those panels apply `mx-auto
+  max-w-6xl` and their own padding directly on themselves, they don't nest inside `CONTAINER`.
+  Don't wrap a solid-fill panel in `CONTAINER` — give it `mx-auto max-w-6xl` and its own
+  padding instead, matching the CTA-panel pattern.
+- Where: `components/ui/site-footer.tsx`.
 ### [Rule override] — real credential logos now used, supersedes the [Trust badges] entry above
 - What happened: the client added `public/credential_logos/{DCA,SBE,OSHA}.png` directly and
   asked for them displayed next to every mention of that credential/license, site-wide. This

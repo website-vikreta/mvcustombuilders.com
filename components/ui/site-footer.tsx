@@ -69,7 +69,11 @@ const QUICK_LINKS = [
 export default function SiteFooter() {
   return (
     <footer className="mt-auto bg-mvcb-black pt-20 md:pt-32">
-      <div className={CONTAINER}>
+      {/* mx-auto max-w-6xl only (no horizontal padding) so the orange card's
+          own edges land flush with the black CTA panels on every other
+          page — those panels carry their own px-* as internal padding
+          rather than sitting inset inside a padded container. */}
+      <div className="mx-auto max-w-6xl">
         {/* orange contact card, per the reference's footer block */}
         <div className="grid grid-cols-1 gap-10 bg-mvcb-orange p-8 md:grid-cols-3 md:p-12">
           <div>
@@ -153,7 +157,7 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 border-t border-white/10 py-8 text-xs text-neutral-500 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 px-8 py-8 text-xs text-neutral-500 sm:flex-row sm:items-center sm:justify-between sm:px-12 lg:px-16">
           <p>&copy; 2026 MV Custom Builders LLC. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <Link href="/legal" className="hover:text-white">
